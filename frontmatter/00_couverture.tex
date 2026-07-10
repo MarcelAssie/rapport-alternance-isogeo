@@ -1,0 +1,142 @@
+\begin{titlepage}
+
+\newgeometry{
+    top=1.45cm,
+    bottom=1.25cm,
+    left=1.65cm,
+    right=1.65cm
+}
+
+\thispagestyle{empty}
+
+\begin{center}
+
+% =============================================================================
+% LOGOS
+% =============================================================================
+
+\noindent
+\begin{minipage}[c][2.35cm][c]{0.42\textwidth}
+    \centering
+    \ReportImageOrPlaceholder{geodataparis.png}{5.45cm}{2.05cm}{LOGO DE L'ECOLE}
+\end{minipage}
+\hfill
+\begin{minipage}[c][2.35cm][c]{0.42\textwidth}
+    \centering
+    \ReportImageOrPlaceholder{isogeo_logo.png}{5.45cm}{2.05cm}{LOGO DE L'ENTREPRISE}
+\end{minipage}
+
+\vspace{0.90cm}
+
+% =============================================================================
+% TYPE DE DOCUMENT
+% =============================================================================
+
+{
+    \color{ReportDarkBlue}
+    \fontsize{22}{27}\selectfont
+    \bfseries
+    Rapport d'Alternance
+    \par
+}
+
+\vspace{0.28cm}
+
+{
+    \fontsize{12}{15}\selectfont
+    \bfseries
+    \ReportLevel
+    \par
+}
+
+\vspace{0.46cm}
+
+% =============================================================================
+% TITRE DU RAPPORT
+% =============================================================================
+
+{
+    \color{ReportDarkBlue}
+    \rule{0.86\textwidth}{0.75pt}
+}
+
+\vspace{0.22cm}
+
+\begin{minipage}{0.82\textwidth}
+    \centering
+    {
+        \color{ReportDarkBlue}
+        \fontsize{24}{31}\selectfont
+        \ReportTitle
+        \par
+    }
+\end{minipage}
+
+\vspace{0.22cm}
+
+{
+    \color{ReportDarkBlue}
+    \rule{0.86\textwidth}{0.75pt}
+}
+
+\vspace{0.78cm}
+
+% =============================================================================
+% IMAGE PRINCIPALE
+% =============================================================================
+
+\IfFileExists{figures/illustration_couverture.png}{%
+    \includegraphics[
+        width=0.91\textwidth,
+        height=7.70cm,
+        keepaspectratio
+    ]{figures/illustration_couverture.png}%
+}{%
+    \FramedPlaceholder{0.91\textwidth}{7.70cm}{EMPLACEMENT DE L'ILLUSTRATION PRINCIPALE}%
+}
+
+\vspace{0.88cm}
+
+% =============================================================================
+% AUTEUR
+% =============================================================================
+
+{
+    \fontsize{16}{19}\selectfont
+    \bfseries
+    \ReportAuthor
+    \par
+}
+
+\vspace{1.05cm}
+
+% =============================================================================
+% DATE DE SOUTENANCE
+% =============================================================================
+
+{
+    \color{ReportDarkBlue}
+    \fontsize{11.5}{14}\selectfont
+    Soutenu le \ReportDefenseDate
+    \par
+}
+
+\vfill
+
+% =============================================================================
+% CONFIDENTIALITE
+% =============================================================================
+
+{
+    \fontsize{10.5}{13}\selectfont
+    \ReportConfidentiality
+    \par
+}
+
+\vspace{0.12cm}
+
+\end{center}
+
+\restoregeometry
+
+\end{titlepage}
