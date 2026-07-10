@@ -15,3 +15,6 @@
 
 # Fichiers temporaires de l'éditeur
 .idea/
+
+# Autres fichiers temporaires
+plan.md
