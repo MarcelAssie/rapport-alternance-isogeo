@@ -1,0 +1,291 @@
+% ---------------------------------------------------------------------------
+% Glossaire et liste des sigles
+% ---------------------------------------------------------------------------
+
+\frontchapter{Glossaire et liste des sigles}
+
+\renewcommand{\arraystretch}{1.25}
+
+% =============================================================================
+% LISTE DES SIGLES
+% =============================================================================
+
+\section*{Liste des sigles}
+\phantomsection
+\addcontentsline{toc}{section}{Liste des sigles}
+
+\small
+
+\begin{longtable}{
+    @{}
+    >{\bfseries}p{0.18\textwidth}
+    p{0.76\textwidth}
+    @{}
+}
+
+\toprule
+Sigle & Signification \\
+\midrule
+\endfirsthead
+
+\toprule
+Sigle & Signification \\
+\midrule
+\endhead
+
+\bottomrule
+\endlastfoot
+
+API
+&
+\textit{Application Programming Interface}. Interface permettant à plusieurs
+composants logiciels ou applications de communiquer entre eux.
+\\
+
+BDD
+&
+Base de données.
+\\
+
+CLI
+&
+\textit{Command-Line Interface}. Interface en ligne de commande permettant
+d'exécuter et de paramétrer un programme depuis un terminal.
+\\
+
+CRS
+&
+\textit{Coordinate Reference System}. Système de référence de coordonnées
+utilisé pour localiser des objets géographiques.
+\\
+
+DLL
+&
+\textit{Dynamic Link Library}. Bibliothèque dynamique utilisée par les
+applications Windows pour partager des fonctions et des dépendances.
+\\
+
+EPSG
+&
+Référentiel de codes permettant d'identifier les systèmes de coordonnées et
+les transformations géodésiques.
+\\
+
+ETL
+&
+\textit{Extract, Transform, Load}. Processus d'extraction, de transformation et
+de chargement de données.
+\\
+
+FME
+&
+\textit{Feature Manipulation Engine}. Plateforme d'intégration et de
+transformation de données développée par Safe Software.
+\\
+
+GDAL
+&
+\textit{Geospatial Data Abstraction Library}. Bibliothèque libre permettant de
+lire, écrire et transformer de nombreux formats de données géospatiales.
+\\
+
+OGR
+&
+Composant de GDAL principalement consacré à la lecture, à l'écriture et au
+traitement des données vectorielles.
+\\
+
+RSE
+&
+Responsabilité sociétale des entreprises.
+\\
+
+SDE
+&
+\textit{Spatial Database Engine}. Technologie Esri utilisée pour accéder à des
+données géographiques stockées dans un système de gestion de base de données.
+\\
+
+SGBD
+&
+Système de gestion de base de données.
+\\
+
+SIG
+&
+Système d'information géographique.
+\\
+
+SQL
+&
+\textit{Structured Query Language}. Langage utilisé pour interroger et
+manipuler des bases de données relationnelles.
+\\
+
+WKT
+&
+\textit{Well-Known Text}. Représentation textuelle normalisée d'une géométrie
+ou d'un système de coordonnées.
+\\
+
+\end{longtable}
+
+\normalsize
+
+\vspace{0.6cm}
+
+% =============================================================================
+% GLOSSAIRE
+% =============================================================================
+
+\section*{Glossaire}
+\phantomsection
+\addcontentsline{toc}{section}{Glossaire}
+
+\small
+
+\begin{longtable}{
+    @{}
+    >{\bfseries}p{0.24\textwidth}
+    p{0.70\textwidth}
+    @{}
+}
+
+\toprule
+Terme & Définition \\
+\midrule
+\endfirsthead
+
+\toprule
+Terme & Définition \\
+\midrule
+\endhead
+
+\bottomrule
+\endlastfoot
+
+ArcPy
+&
+Bibliothèque Python fournie par Esri permettant d'automatiser des traitements
+réalisés avec ArcGIS et d'accéder aux propriétés des données géographiques
+Esri.
+\\
+
+Base de données spatiale
+&
+Base de données capable de stocker, d'interroger et de manipuler des objets
+géographiques tels que des points, des lignes et des polygones.
+\\
+
+Connecteur
+&
+Composant logiciel chargé d'établir la communication avec une source de données
+et d'en extraire les informations attendues par l'application.
+\\
+
+Donnée raster
+&
+Donnée géographique organisée sous la forme d'une grille de cellules ou de
+pixels, utilisée notamment pour représenter des images aériennes, des modèles
+numériques ou des cartes continues.
+\\
+
+Donnée vectorielle
+&
+Donnée géographique représentée par des géométries telles que des points, des
+lignes ou des polygones, auxquelles peuvent être associés des attributs.
+\\
+
+Driver
+&
+Composant logiciel permettant à GDAL/OGR de lire ou d'écrire un format de
+fichier ou une source de données particulière.
+\\
+
+Emprise spatiale
+&
+Rectangle minimal décrivant les limites géographiques d'un jeu de données. Elle
+est généralement définie par ses coordonnées minimales et maximales.
+\\
+
+Enveloppe convexe
+&
+Plus petit polygone convexe contenant l'ensemble des géométries d'un jeu de
+données.
+\\
+
+Géodatabase
+&
+Structure de stockage de données géographiques utilisée notamment par les
+solutions Esri. Elle peut être locale ou hébergée dans un système de gestion de
+base de données.
+\\
+
+Géomatique
+&
+Discipline regroupant les méthodes et technologies utilisées pour acquérir,
+stocker, traiter, analyser et représenter des données localisées.
+\\
+
+Métadonnée
+&
+Information décrivant une ressource de données, par exemple son nom, sa
+structure, son format, sa projection, son emprise ou sa date de modification.
+\\
+
+Packaging
+&
+Processus consistant à regrouper une application et ses dépendances afin de
+permettre son installation ou son exécution dans un environnement cible.
+\\
+
+PostGIS
+&
+Extension spatiale du système de gestion de base de données PostgreSQL. Elle
+permet de stocker et d'interroger des géométries ainsi que d'effectuer des
+traitements spatiaux.
+\\
+
+PyInstaller
+&
+Outil permettant de transformer une application Python et ses dépendances en
+un exécutable pouvant être lancé sans installation préalable de Python.
+\\
+
+Scan
+&
+Produit d'ISOGEO chargé d'explorer des sources de données, d'identifier les
+ressources qu'elles contiennent et d'extraire les informations techniques
+nécessaires à leur documentation dans l'écosystème ISOGEO.
+\\
+
+Signature
+&
+Ensemble d'informations calculées à partir d'une ressource afin de la
+caractériser, de la comparer ou de détecter une éventuelle évolution de son
+contenu.
+\\
+
+Source de données
+&
+Emplacement ou système à partir duquel Scan analyse des ressources. Une source
+peut notamment correspondre à une base de données, une géodatabase, un dossier
+ou un fichier géographique.
+\\
+
+Test de régression
+&
+Test visant à vérifier qu'une modification du logiciel n'altère pas un
+comportement précédemment validé. Dans ce projet, les résultats Python sont
+comparés aux résultats produits par les traitements FME de référence.
+\\
+
+Workbench FME
+&
+Fichier de travail FME décrivant graphiquement une chaîne de lecture, de
+transformation et d'écriture de données.
+\\
+
+\end{longtable}
+
+\normalsize

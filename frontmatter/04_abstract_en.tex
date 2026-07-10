@@ -1,0 +1,52 @@
+% ---------------------------------------------------------------------------
+% Abstract and keywords
+% ---------------------------------------------------------------------------
+
+\chapter*{Abstract}
+
+ISOGEO's Scan product explores various data sources in order to identify the
+resources they contain and extract the information required for their
+documentation. Its operation relies on several processes capable of analysing
+databases, geodatabases and geospatial files from different technical
+environments.
+
+Some of these processes were historically implemented using FME workbenches.
+Although FME provides numerous data integration and transformation features,
+its use introduced an external dependency into the Scan execution chain. The
+main objective of this apprenticeship was therefore to progressively replace
+some of these workflows with a Python solution integrated into the product and
+capable of running independently.
+
+The first stage of the work consisted in analysing the existing FME workflows
+in order to identify their inputs, outputs, transformations and business rules.
+Python components were then developed to connect to several data sources,
+including PostgreSQL/PostGIS, Oracle, SQL Server and Esri enterprise
+geodatabases. These developments extract information about tables, fields,
+coordinate reference systems, spatial extents, geometries and various technical
+metadata required by Scan.
+
+The GDAL/OGR library was used in particular to analyse vector and raster
+geospatial data sources. Specific implementations were also introduced to
+handle the characteristics of each database management system, invalid data,
+connection errors and behavioural differences between formats.
+
+Particular attention was paid to the industrialisation of the solution. The
+developed components were integrated into a modular architecture, supported by
+structured error management and prepared for the generation of a standalone
+Windows executable using PyInstaller. A regression testing approach was also
+designed to automatically compare the results produced by the former FME
+workflows with those obtained from the new Python implementation.
+
+The work carried out contributes to reducing Scan's dependency on FME,
+improving the maintainability of its processing components and facilitating
+their integration into ISOGEO's software environment. This apprenticeship also
+enabled me to strengthen my skills in Python development, geospatial data
+processing, spatial databases, software packaging and technical solution
+validation.
+
+\vspace{0.7cm}
+
+\noindent
+\textbf{Keywords:}
+geomatics; Scan; ISOGEO; Python; FME; GDAL/OGR; metadata; spatial databases;
+PyInstaller; regression testing.

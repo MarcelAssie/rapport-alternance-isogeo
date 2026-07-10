@@ -5,9 +5,6 @@
     openany
 ]{report}
 
-% =============================================================================
-% MOTEUR DE COMPILATION
-% =============================================================================
 
 \usepackage{iftex}
 
@@ -17,9 +14,6 @@
     {Configurez votre compilateur avec l'option -lualatex.}
 \fi
 
-% =============================================================================
-% LANGUE ET TYPOGRAPHIE
-% =============================================================================
 
 \usepackage{fontspec}
 \usepackage[french]{babel}
@@ -30,8 +24,7 @@
     Ligatures=TeX
 }
 
-% Police proche du modèle de rapport fourni.
-% Times New Roman est utilisée lorsqu'elle est disponible sous Windows.
+
 \IfFontExistsTF{Times New Roman}{
     \setmainfont{Times New Roman}
 }{
@@ -50,12 +43,8 @@
     \setmonofont{Latin Modern Mono}
 }
 
-% La police principale du rapport reste une police avec empattements.
 \renewcommand{\familydefault}{\rmdefault}
 
-% =============================================================================
-% MISE EN PAGE
-% =============================================================================
 
 \usepackage[
     top=2.5cm,
@@ -411,22 +400,11 @@ Développement d'un logiciel de documentation des données géographiques
     XX
 }
 
-% =============================================================================
-% FICHIERS DES IMAGES
-% =============================================================================
-
-% Place les images dans le dossier figures/.
-% Tant qu'elles n'existent pas, un cadre est automatiquement affiché.
-
-% (déjà défini plus haut - voir section INFORMATIONS GÉNÉRALES DU RAPPORT)
-
-% =============================================================================
-% COMMANDES PERSONNALISÉES
-% =============================================================================
 
 \newcommand{\placeholder}[1]{\textcolor{ReportGray}{#1}}
 
 \newcommand{\frontchapter}[1]{%
+    \clearpage
     \chapter*{#1}%
     \addcontentsline{toc}{chapter}{#1}%
 }
@@ -494,7 +472,7 @@ Développement d'un logiciel de documentation des données géographiques
 
 \clearpage
 
-\LoadReportFile{frontmatter/02_avant_propos_remerciements}
+\LoadReportFile{frontmatter/02_remerciements}
 \LoadReportFile{frontmatter/03_resume_fr}
 \LoadReportFile{frontmatter/04_abstract_en}
 
@@ -517,12 +495,12 @@ Développement d'un logiciel de documentation des données géographiques
 
 % Les fichiers suivants pourront être ajoutés progressivement.
 %
-% \LoadReportFile{chapters/introduction}
-% \LoadReportFile{chapters/chapitre_01}
-% \LoadReportFile{chapters/chapitre_02}
-% \LoadReportFile{chapters/chapitre_03}
-% \LoadReportFile{chapters/chapitre_04}
-% \LoadReportFile{chapters/conclusion}
+% \LoadReportFile{parts/introduction}
+% \LoadReportFile{parts/chapitre_01}
+% \LoadReportFile{parts/chapitre_02}
+% \LoadReportFile{parts/chapitre_03}
+% \LoadReportFile{parts/chapitre_04}
+% \LoadReportFile{parts/conclusion}
 
 % -----------------------------------------------------------------------------
 % BIBLIOGRAPHIE ET ANNEXES
