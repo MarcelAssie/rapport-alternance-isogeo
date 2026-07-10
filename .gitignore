@@ -12,6 +12,7 @@
 *.run.xml
 *.synctex.gz
 *.toc
+.synctex(busy)
 
 # Fichiers temporaires de l'éditeur
 .idea/
