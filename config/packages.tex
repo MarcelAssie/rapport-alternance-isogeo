@@ -1,0 +1,47 @@
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% provide=* permet aussi la compilation sur une installation TeX Live minimale.
+\usepackage[provide=*,french]{babel}
+\addto\captionsfrench{%
+    \renewcommand{\listfigurename}{Liste des figures}%
+}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=3cm,
+    right=2.5cm
+}
+
+\definecolor{isogeoblue}{HTML}{135D7A}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=isogeoblue,
+    citecolor=isogeoblue,
+    urlcolor=isogeoblue,
+    pdfauthor={Assie Kouakou Kan José Marcel}
+}
+
+\setstretch{1.15}
+\setlength{\parindent}{0.7cm}
+\setlength{\parskip}{0.25em}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\fancyhead[L]{Rapport d'alternance}
+\fancyhead[R]{\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}

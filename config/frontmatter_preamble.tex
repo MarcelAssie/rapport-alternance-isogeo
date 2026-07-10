@@ -1,0 +1,55 @@
+% ---------------------------------------------------------------------------
+% Préambule minimal pour les premières pages du rapport.
+% À importer dans main.tex AVANT \begin{document}.
+% ---------------------------------------------------------------------------
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{ifthen}
+
+\definecolor{reportblue}{RGB}{31,58,103}
+\definecolor{lightblue}{RGB}{235,241,250}
+\definecolor{lightgrayline}{RGB}{210,210,210}
+
+\newcommand{\placeholder}[1]{\textcolor{gray}{#1}}
+
+% Affiche un logo s'il existe ; sinon affiche un cadre discret.
+% Utilisation : \safeLogo{chemin/vers/logo.png}{largeur}{Nom affiché si absent}
+\newcommand{\safeLogo}[3]{%
+  \IfFileExists{#1}{%
+    \includegraphics[width=#2]{#1}%
+  }{%
+    \fbox{%
+      \begin{minipage}[c][1.25cm][c]{#2}
+        \centering\scriptsize #3
+      \end{minipage}%
+    }%
+  }%
+}
+
+% Titre non numéroté ajouté à la table des matières.
+% Ce rapport utilise une classe avec \chapter. Si ton main.tex est en classe
+% article, remplace \chapter* par \section* dans cette commande.
+\newcommand{\frontchapter}[1]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+}
+
+% Affiche une image s'elle existe ; sinon affiche un cadre avec un texte de remplacement.
+% Utilisation : \ReportImageOrPlaceholder{nom_fichier}{largeur}{hauteur}{texte_placeholder}
+\newcommand{\ReportImageOrPlaceholder}[4]{%
+  \IfFileExists{figures/#1}{%
+    \includegraphics[width=#2,height=#3,keepaspectratio]{figures/#1}%
+  }{%
+    \fbox{%
+      \begin{minipage}[c][#3][c]{#2}
+        \centering\sffamily\footnotesize\textcolor{ReportGray}{#4}
+      \end{minipage}%
+    }%
+  }%
+}
+
+
