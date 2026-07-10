@@ -1,32 +1,536 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[
+    12pt,
+    a4paper,
+    oneside,
+    openany
+]{report}
 
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+% =============================================================================
+% MOTEUR DE COMPILATION
+% =============================================================================
+
+\usepackage{iftex}
+
+\ifPDFTeX
+    \PackageError{rapport-alternance}
+    {Ce document doit etre compile avec LuaLaTeX ou XeLaTeX}
+    {Configurez votre compilateur avec l'option -lualatex.}
+\fi
+
+% =============================================================================
+% LANGUE ET TYPOGRAPHIE
+% =============================================================================
+
+\usepackage{fontspec}
 \usepackage[french]{babel}
-\usepackage{lmodern}
-\usepackage{geometry}
+\usepackage{csquotes}
+\usepackage{microtype}
 
-\geometry{
-    top=2.5cm,
-    bottom=2.5cm,
-    left=3cm,
-    right=2.5cm
+\defaultfontfeatures{
+    Ligatures=TeX
 }
 
-\title{Rapport d'alternance}
-\author{Assie Kouakou Kan José Marcel}
-\date{Année universitaire 2025--2026}
+% Police proche du modèle de rapport fourni.
+% Times New Roman est utilisée lorsqu'elle est disponible sous Windows.
+\IfFontExistsTF{Times New Roman}{
+    \setmainfont{Times New Roman}
+}{
+    \setmainfont{Latin Modern Roman}
+}
+
+\IfFontExistsTF{Arial}{
+    \setsansfont{Arial}
+}{
+    \setsansfont{Latin Modern Sans}
+}
+
+\IfFontExistsTF{Consolas}{
+    \setmonofont{Consolas}
+}{
+    \setmonofont{Latin Modern Mono}
+}
+
+% La police principale du rapport reste une police avec empattements.
+\renewcommand{\familydefault}{\rmdefault}
+
+% =============================================================================
+% MISE EN PAGE
+% =============================================================================
+
+\usepackage[
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.7cm,
+    right=2.5cm,
+    headheight=16pt
+]{geometry}
+
+\usepackage{setspace}
+
+\setstretch{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\emergencystretch}{3em}
+
+\raggedbottom
+
+% =============================================================================
+% COULEURS
+% =============================================================================
+
+\usepackage{xcolor}
+
+\definecolor{ReportBlue}{HTML}{274B7A}
+\definecolor{ReportDarkBlue}{HTML}{1D385F}
+\definecolor{ReportGreen}{HTML}{78A22F}
+\definecolor{ReportLightBlue}{HTML}{E8EEF5}
+\definecolor{ReportLightGray}{HTML}{F3F4F6}
+\definecolor{ReportGray}{HTML}{62666B}
+\definecolor{ReportText}{HTML}{111111}
+
+\color{ReportText}
+
+% =============================================================================
+% FIGURES ET ÉLÉMENTS GRAPHIQUES
+% =============================================================================
+
+\usepackage{graphicx}
+
+\graphicspath{
+    {figures/}
+}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+% =============================================================================
+% TABLEAUX
+% =============================================================================
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+
+% =============================================================================
+% FIGURES ET LÉGENDES
+% =============================================================================
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\captionsetup{
+    font=small,
+    labelfont=bf,
+    justification=centering,
+    singlelinecheck=false
+}
+
+% =============================================================================
+% LISTES
+% =============================================================================
+
+\usepackage{enumitem}
+
+\setlist[itemize]{
+    leftmargin=1.5em,
+    itemsep=0.25em,
+    topsep=0.4em
+}
+
+\setlist[enumerate]{
+    leftmargin=1.8em,
+    itemsep=0.25em,
+    topsep=0.4em
+}
+
+% =============================================================================
+% TITRES ET CHAPITRES
+% =============================================================================
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}[display]
+    {\normalfont\rmfamily\bfseries\color{ReportDarkBlue}}
+    {\fontsize{14}{17}\selectfont CHAPITRE \thechapter}
+    {0.6em}
+    {\fontsize{22}{27}\selectfont}
+    [\vspace{0.45em}\color{ReportDarkBlue}\titlerule]
+
+\titlespacing*{\chapter}
+    {0pt}
+    {-20pt}
+    {30pt}
+
+\titleformat{\section}
+    {\normalfont\rmfamily\Large\bfseries\color{ReportDarkBlue}}
+    {\thesection}
+    {0.8em}
+    {}
+
+\titleformat{\subsection}
+    {\normalfont\rmfamily\large\bfseries\color{ReportDarkBlue}}
+    {\thesubsection}
+    {0.8em}
+    {}
+
+\titleformat{\subsubsection}
+    {\normalfont\rmfamily\normalsize\bfseries\color{ReportText}}
+    {\thesubsubsection}
+    {0.8em}
+    {}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% =============================================================================
+% TABLE DES MATIERES
+% =============================================================================
+
+\usepackage{tocloft}
+
+\renewcommand{\cfttoctitlefont}{\normalfont\rmfamily\bfseries\normalsize}
+\renewcommand{\cftloftitlefont}{\normalfont\rmfamily\bfseries\normalsize}
+\renewcommand{\cftlottitlefont}{\normalfont\rmfamily\bfseries\normalsize}
+\renewcommand{\cftaftertoctitle}{\vspace{1.4em}}
+\renewcommand{\cftafterloftitle}{\vspace{1.4em}}
+\renewcommand{\cftafterlottitle}{\vspace{1.4em}}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftbeforeloftitleskip}{0pt}
+\setlength{\cftbeforelottitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{0.8em}
+\setlength{\cftafterloftitleskip}{0.8em}
+\setlength{\cftafterlottitleskip}{0.8em}
+
+\renewcommand{\cftdotsep}{1.2}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsubsubsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftfigleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cfttableader}{\cftdotfill{\cftdotsep}}
+
+\renewcommand{\cftchapfont}{\normalfont}
+\renewcommand{\cftchappagefont}{\normalfont}
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\renewcommand{\cftsubsecpagefont}{\normalfont}
+\renewcommand{\cftsubsubsecfont}{\normalfont}
+\renewcommand{\cftsubsubsecpagefont}{\normalfont}
+
+\setlength{\cftbeforechapskip}{0.34em}
+\setlength{\cftbeforesecskip}{0.16em}
+\setlength{\cftbeforesubsecskip}{0.12em}
+\setlength{\cftbeforesubsubsecskip}{0.08em}
+
+\setlength{\cftchapindent}{0pt}
+\setlength{\cftsecindent}{1.15em}
+\setlength{\cftsubsecindent}{2.45em}
+\setlength{\cftsubsubsecindent}{3.80em}
+\setlength{\cftchapnumwidth}{4.7em}
+\setlength{\cftsecnumwidth}{3.1em}
+\setlength{\cftsubsecnumwidth}{3.9em}
+\setlength{\cftsubsubsecnumwidth}{4.7em}
+
+% =============================================================================
+% EN-TÊTES ET PIEDS DE PAGE
+% =============================================================================
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{
+    \small
+    \textcolor{ReportGray}{Rapport d'Alternance}
+}
+
+\fancyhead[R]{
+    \small
+    \textcolor{ReportGray}{\nouppercase{\leftmark}}
+}
+
+\fancyfoot[C]{
+    \small
+    \textcolor{ReportGray}{\thepage}
+}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\makeatletter
+\renewcommand{\headrule}{
+    \hbox to\headwidth{
+        \color{ReportLightBlue}
+        \leaders\hrule height \headrulewidth\hfill
+    }
+}
+\makeatother
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+
+    \fancyfoot[C]{
+        \small
+        \textcolor{ReportGray}{\thepage}
+    }
+
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% =============================================================================
+% LIENS ET MÉTADONNÉES DU PDF
+% =============================================================================
+
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{lastpage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=ReportDarkBlue,
+    citecolor=ReportDarkBlue,
+    urlcolor=ReportBlue,
+    pdfborder={0 0 0},
+    pdftitle={
+      Développement d'un logiciel de documentation des données géographiques
+    },
+    pdfauthor={Assie Kouakou Kan José Marcel},
+    pdfsubject={Rapport d'Alternance},
+    pdfkeywords={
+        géomatique,
+        Python,
+        FME,
+        GDAL,
+        OGR,
+        PyInstaller,
+        Isogeo,
+        Scan
+    }
+}
+
+% =============================================================================
+% INFORMATIONS GÉNÉRALES DU RAPPORT
+% =============================================================================
+
+\newcommand{\ReportTitle}{
+Développement d'un logiciel de documentation des données géographiques
+}
+
+\newcommand{\ReportAuthor}{
+    Marcel Assie
+}
+
+\newcommand{\ReportSchool}{
+    Géodata Paris
+}
+
+\newcommand{\ReportSchoolSubtitle}{
+    École nationale des sciences géographiques
+}
+
+\newcommand{\ReportDegree}{
+    Diplôme d'ingénieur en géomatique
+}
+
+\newcommand{\ReportLevel}{
+    Ingénieur troisième année
+}
+
+\newcommand{\ReportCompany}{
+    ISOGEO
+}
+
+\newcommand{\ReportAcademicYear}{
+    2025--2026
+}
+
+\newcommand{\ReportLocation}{
+    Champs-sur-Marne
+}
+
+\newcommand{\ReportDefenseDate}{
+    01/09/2026
+}
+
+\newcommand{\ReportConfidentiality}{
+    Non confidentiel
+}
+
+\newcommand{\ReportSchoolLogoFile}{
+    geodataparis.jpg
+}
+
+
+\newcommand{\ReportCompanyLogoFile}{
+    isogeo_logo.png
+}
+
+\newcommand{\ReportCoverImageFile}{
+    illustration_couverture.png
+}
+
+% =============================================================================
+% INFORMATIONS DE LA DEUXIÈME PAGE
+% =============================================================================
+
+\newcommand{\ReportCompanyAddress}{
+    26 Rue du Faubourg Saint-Antoine, 75012 Paris
+}
+
+\newcommand{\ReportCompanyService}{
+    Equipe Produit
+}
+
+\newcommand{\ReportCompanyTutor}{
+    Simon SAMPERE
+}
+
+\newcommand{\ReportAcademicTutor}{
+    Laurent BRETON
+}
+
+\newcommand{\ReportMainReviewer}{
+
+}
+
+\newcommand{\ReportPeriod}{
+    Du 08/09/2025 au 07/09/2026
+}
+
+\newcommand{\ReportDocumentVersion}{
+    1.0
+}
+
+\newcommand{\ReportPageCount}{
+    XX
+}
+
+% =============================================================================
+% FICHIERS DES IMAGES
+% =============================================================================
+
+% Place les images dans le dossier figures/.
+% Tant qu'elles n'existent pas, un cadre est automatiquement affiché.
+
+% (déjà défini plus haut - voir section INFORMATIONS GÉNÉRALES DU RAPPORT)
+
+% =============================================================================
+% COMMANDES PERSONNALISÉES
+% =============================================================================
+
+\newcommand{\placeholder}[1]{\textcolor{ReportGray}{#1}}
+
+\newcommand{\frontchapter}[1]{%
+    \chapter*{#1}%
+    \addcontentsline{toc}{chapter}{#1}%
+}
+
+% Cadre temporaire affiché lorsqu'une image n'existe pas.
+\newcommand{\FramedPlaceholder}[3]{%
+    \fbox{%
+        \begin{minipage}[c][#2][c]{%
+            \dimexpr#1-2\fboxsep-2\fboxrule\relax
+        }
+            \centering
+            \footnotesize
+            \color{ReportGray}
+            #3
+        \end{minipage}%
+    }%
+}
+
+% Affiche une image lorsqu'elle existe.
+% Sinon, affiche automatiquement un cadre temporaire.
+\newcommand{\ReportImageOrPlaceholder}[4]{%
+    \IfFileExists{figures/#1}{%
+        \includegraphics[
+            width=#2,
+            height=#3,
+            keepaspectratio
+        ]{figures/#1}%
+    }{%
+        \FramedPlaceholder{#2}{#3}{#4}%
+    }%
+}
+
+% Charge un fichier uniquement s'il existe.
+\newcommand{\LoadReportFile}[1]{%
+    \IfFileExists{#1.tex}{%
+        \input{#1}%
+    }{%
+        \PackageWarning{rapport-alternance}
+        {Le fichier #1.tex est introuvable}%
+    }%
+}
+
+% =============================================================================
+% DÉBUT DU DOCUMENT
+% =============================================================================
 
 \begin{document}
 
-\maketitle
+% -----------------------------------------------------------------------------
+% COUVERTURE EN DEUX PAGES
+% -----------------------------------------------------------------------------
 
-\tableofcontents
+\pagenumbering{gobble}
+\pagestyle{empty}
 
-\chapter{Introduction générale}
+% Première page : couverture principale.
+\LoadReportFile{frontmatter/00_couverture}
 
+% Deuxième page : informations administratives du rapport.
+\LoadReportFile{frontmatter/01_informations_rapport}
 
-Ce rapport présente les travaux réalisés dans le cadre de mon alternance
-au sein de l'entreprise Isogeo.
+% -----------------------------------------------------------------------------
+% PAGES PRÉLIMINAIRES
+% -----------------------------------------------------------------------------
+
+\clearpage
+
+\LoadReportFile{frontmatter/02_avant_propos_remerciements}
+\LoadReportFile{frontmatter/03_resume_fr}
+\LoadReportFile{frontmatter/04_abstract_en}
+
+\clearpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+\pagestyle{plain}
+
+\LoadReportFile{frontmatter/05_glossaire_sigles}
+\LoadReportFile{frontmatter/06_tables_et_listes}
+
+% -----------------------------------------------------------------------------
+% CORPS DU RAPPORT
+% -----------------------------------------------------------------------------
+
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+% Les fichiers suivants pourront être ajoutés progressivement.
+%
+% \LoadReportFile{chapters/introduction}
+% \LoadReportFile{chapters/chapitre_01}
+% \LoadReportFile{chapters/chapitre_02}
+% \LoadReportFile{chapters/chapitre_03}
+% \LoadReportFile{chapters/chapitre_04}
+% \LoadReportFile{chapters/conclusion}
+
+% -----------------------------------------------------------------------------
+% BIBLIOGRAPHIE ET ANNEXES
+% -----------------------------------------------------------------------------
+
+% \LoadReportFile{bibliography/bibliographie}
+%
+% \appendix
+% \LoadReportFile{annexes/annexes}
 
 \end{document}
