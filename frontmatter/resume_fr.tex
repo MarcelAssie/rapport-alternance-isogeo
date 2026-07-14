@@ -1,63 +1,48 @@
+
 % ---------------------------------------------------------------------------
 % Résumé en français et mots-clés
 % ---------------------------------------------------------------------------
 
 \chapter*{Résumé}
 
-Le produit Scan d'ISOGEO permet d'explorer différentes sources de données afin
-d'identifier les ressources qu'elles contiennent et d'en extraire les
-informations nécessaires à leur documentation.
-Son fonctionnement repose sur
-plusieurs traitements capables d'analyser des bases de données, des
-géodatabases et des fichiers géographiques provenant d'environnements
-techniques variés.
+Le produit Scan d'ISOGEO permet d'explorer différentes sources de données
+géographiques afin d'identifier leur contenu et d'en extraire les métadonnées.
+Ces informations alimentent ensuite le processus de catalogage, qui constitue
+le cœur de l'activité d'ISOGEO en facilitant le recensement, la documentation et
+la valorisation des données géographiques. Scan prend notamment en charge des
+bases de données, des géodatabases d'entreprise ainsi que plusieurs formats de
+fichiers géographiques.
 
-Une partie de ces traitements était historiquement réalisée à l'aide de
-workbenches FME. Bien que cet outil fournisse de nombreuses fonctionnalités
-d'intégration et de transformation de données, son utilisation introduisait une
-dépendance externe dans la chaîne d'exécution de Scan.
-La mission réalisée au
-cours de cette alternance a donc consisté à remplacer progressivement certains
-de ces traitements par une solution Python intégrée au produit et pouvant être
-exécutée de manière autonome.
+Historiquement, une partie de ces traitements reposait sur des workbenches FME,
+ce qui entraînait une dépendance externe et des coûts de licence. ISOGEO a donc
+engagé leur remplacement progressif par des scripts Python intégrés directement
+au produit. Ma mission a consisté à poursuivre cette migration, déjà initiée
+pour certaines sources comme PostGIS et les géodatabases d'entreprise Esri.
 
-Le travail a d'abord porté sur l'analyse des traitements FME existants afin
-d'identifier leurs entrées, leurs sorties, les transformations appliquées et les
-règles métier à conserver.
-Des composants Python ont ensuite été développés
-pour se connecter à différentes sources, notamment PostgreSQL/PostGIS, Oracle,
-SQL Server et les géodatabases d'entreprise Esri.
-Les développements réalisés
-permettent d'extraire des informations relatives aux tables, aux champs, aux
-projections, aux emprises spatiales, aux géométries et à différentes
-métadonnées techniques attendues par Scan.
+Après une phase d'analyse et de documentation de l'existant, j'ai participé au
+développement de traitements pour plusieurs sources, notamment les données
+vectorielles et raster, GeoPackage, Oracle et SQL Server. Ces scripts permettent
+d'extraire les tables, les champs, les projections, les géométries, les emprises
+spatiales et les autres métadonnées attendues par Scan, ainsi que de générer une
+signature des données.
 
-La bibliothèque GDAL/OGR a notamment été utilisée pour l'analyse des sources
-géographiques vectorielles et raster.
-Des traitements spécifiques ont également
-été mis en place pour gérer les particularités de chaque système de gestion de
-base de données, les données invalides, les erreurs de connexion et les écarts
-de comportement entre les différents formats.
+La bibliothèque GDAL/OGR a été principalement utilisée, complétée par des
+bibliothèques adaptées à certains formats spécifiques. Les scripts ont ensuite
+été organisés dans une architecture modulaire et préparés pour être distribués
+sous la forme d'un exécutable Windows autonome avec PyInstaller. Cet exécutable
+est généré dans un environnement Docker afin de rendre le processus
+reproductible et indépendant des bibliothèques installées sur le poste du
+développeur. Des tests de régression permettent également de comparer les
+résultats obtenus avec ceux des anciens traitements FME.
 
-Une attention particulière a été portée à l'industrialisation de la solution.
-Les composants développés ont été intégrés dans une architecture modulaire,
-accompagnés d'une gestion structurée des erreurs et préparés pour la génération
-d'un exécutable Windows autonome avec PyInstaller.
-Une démarche de tests de
-régression a également été élaborée afin de comparer automatiquement les
-résultats produits par les anciens traitements FME avec ceux obtenus par la
-nouvelle implémentation Python.
-
-Les travaux réalisés contribuent ainsi à réduire la dépendance de Scan à FME,
-à faciliter la maintenance de ses traitements et à renforcer leur intégration
-dans l'environnement logiciel d'ISOGEO. Cette alternance m'a également permis
-de développer mes compétences en programmation Python, en traitement de
-données géographiques, en bases de données spatiales, en packaging logiciel et
-en validation de solutions techniques.
+Ces travaux contribuent à réduire la dépendance de Scan à FME, à faciliter la
+maintenance des traitements et à renforcer leur intégration dans
+l'environnement logiciel d'ISOGEO.
 
 \vspace{0.7cm}
 
 \noindent
 \textbf{Mots-clés :}
 géomatique ; Scan ; ISOGEO ; Python ; FME ; GDAL/OGR ; métadonnées ;
-bases de données spatiales ; PyInstaller ; tests de régression.
+bases de données spatiales ; Docker ; PyInstaller ; tests de régression.
+

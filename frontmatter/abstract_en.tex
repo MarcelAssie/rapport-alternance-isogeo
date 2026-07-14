@@ -1,52 +1,46 @@
+
 % ---------------------------------------------------------------------------
 % Abstract and keywords
 % ---------------------------------------------------------------------------
 
 \chapter*{Abstract}
 
-ISOGEO's Scan product explores various data sources in order to identify the
-resources they contain and extract the information required for their
-documentation. Its operation relies on several processes capable of analysing
-databases, geodatabases and geospatial files from different technical
-environments.
+ISOGEO's Scan product explores various geospatial data sources to identify
+their contents and extract their metadata. This information supports the data
+cataloguing process, which lies at the core of ISOGEO's activities by
+facilitating the inventory, documentation and enhancement of geospatial data.
+Scan supports databases, enterprise geodatabases and several geospatial file
+formats.
 
-Some of these processes were historically implemented using FME workbenches.
-Although FME provides numerous data integration and transformation features,
-its use introduced an external dependency into the Scan execution chain. The
-main objective of this apprenticeship was therefore to progressively replace
-some of these workflows with a Python solution integrated into the product and
-capable of running independently.
+Historically, some of these processes relied on FME workbenches, resulting in
+an external dependency and additional licensing costs. ISOGEO therefore began
+progressively replacing them with Python scripts integrated directly into the
+product. My work-study assignment consisted in continuing this migration,
+which had already been initiated for sources such as PostGIS and Esri
+enterprise geodatabases.
 
-The first stage of the work consisted in analysing the existing FME workflows
-in order to identify their inputs, outputs, transformations and business rules.
-Python components were then developed to connect to several data sources,
-including PostgreSQL/PostGIS, Oracle, SQL Server and Esri enterprise
-geodatabases. These developments extract information about tables, fields,
-coordinate reference systems, spatial extents, geometries and various technical
-metadata required by Scan.
+After analysing and documenting the existing developments, I contributed to
+the implementation of processing components for several sources, including
+vector and raster data, GeoPackage, Oracle and SQL Server. These scripts extract
+the tables, fields, coordinate reference systems, geometries, spatial extents
+and other metadata required by Scan. They also generate data signatures.
 
-The GDAL/OGR library was used in particular to analyse vector and raster
-geospatial data sources. Specific implementations were also introduced to
-handle the characteristics of each database management system, invalid data,
-connection errors and behavioural differences between formats.
+GDAL/OGR was the main library used, together with additional libraries adapted
+to specific formats. The scripts were then organised within a modular
+architecture and prepared for distribution as a standalone Windows executable
+using PyInstaller. This executable is built in a Docker environment to ensure a
+reproducible process independent of the libraries installed on the developer's
+computer. Regression tests also make it possible to compare the results with
+those produced by the former FME workflows.
 
-Particular attention was paid to the industrialisation of the solution. The
-developed components were integrated into a modular architecture, supported by
-structured error management and prepared for the generation of a standalone
-Windows executable using PyInstaller. A regression testing approach was also
-designed to automatically compare the results produced by the former FME
-workflows with those obtained from the new Python implementation.
-
-The work carried out contributes to reducing Scan's dependency on FME,
-improving the maintainability of its processing components and facilitating
-their integration into ISOGEO's software environment. This apprenticeship also
-enabled me to strengthen my skills in Python development, geospatial data
-processing, spatial databases, software packaging and technical solution
-validation.
+This work contributes to reducing Scan's dependency on FME, facilitating the
+maintenance of its processing components and strengthening their integration
+into ISOGEO's software environment.
 
 \vspace{0.7cm}
 
 \noindent
 \textbf{Keywords:}
 geomatics; Scan; ISOGEO; Python; FME; GDAL/OGR; metadata; spatial databases;
-PyInstaller; regression testing.
+Docker; PyInstaller; regression testing.
+
