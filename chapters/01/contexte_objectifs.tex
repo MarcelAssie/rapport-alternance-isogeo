@@ -1,0 +1,661 @@
+% =============================================================================
+% CHAPITRE 1 — CONTEXTE ET OBJECTIFS DE L'ALTERNANCE
+% Première partie : contexte général et présentation du sujet
+% =============================================================================
+
+\chapter{Contexte et objectifs}
+\label{chap:contexte_objectifs}
+
+Ce premier chapitre présente le cadre général dans lequel s'est déroulée
+l'alternance. Il introduit tout d'abord l'organisme d'accueil, son
+positionnement dans le domaine de la géomatique ainsi que l'environnement
+professionnel et technique de la mission. Il présente ensuite le produit Scan,
+la place historique de FME dans son fonctionnement et les raisons ayant conduit
+à engager une migration progressive de certains traitements vers une solution
+Python autonome.
+
+L'objectif est de situer la mission dans son contexte avant de détailler, dans
+les chapitres suivants, les choix techniques effectués, les développements
+réalisés ainsi que la démarche de validation mise en œuvre.
+
+% =============================================================================
+% 1.1 PRÉSENTATION DU CONTEXTE GÉNÉRAL
+% =============================================================================
+
+\section{Présentation du contexte général}
+\label{sec:contexte_general}
+
+% -----------------------------------------------------------------------------
+% 1.1.1 Présentation de l'organisme d'accueil
+% -----------------------------------------------------------------------------
+
+\subsection{Présentation de l'organisme d'accueil}
+\label{subsec:organisme_accueil}
+
+Isogeo est une entreprise française spécialisée dans la gestion, la
+documentation et la valorisation des données géographiques. Elle développe une
+solution de géocatalogage destinée aux organisations qui produisent,
+administrent ou utilisent un volume important de données géographiques.
+
+Son activité répond à une problématique fréquemment rencontrée au sein des
+systèmes d'information géographique : les données sont souvent réparties entre
+plusieurs serveurs, bases de données, répertoires de fichiers et applications
+métiers. Cette dispersion peut rendre difficile l'identification des ressources
+disponibles, la compréhension de leur contenu, l'évaluation de leur qualité et
+leur réutilisation par les différents utilisateurs.
+
+La solution proposée par Isogeo vise ainsi à automatiser la constitution et la
+mise à jour d'un catalogue de données géographiques. Elle permet aux
+organisations de disposer d'un inventaire centralisé de leur patrimoine de
+données, d'enrichir les fiches de métadonnées associées, puis de faciliter leur
+recherche, leur consultation et leur diffusion.
+\footnote{%
+    \href{https://www.isogeo.com/}
+    {Site officiel d'Isogeo, présentation de la solution de catalogage,
+    consulté en juillet 2026.}%
+}
+
+Ce positionnement place l'entreprise à l'intersection de plusieurs domaines :
+
+\begin{itemize}
+    \item la géomatique et les systèmes d'information géographique ;
+    \item la gouvernance et la qualité des données ;
+    \item le développement de logiciels spécialisés ;
+    \item la gestion et la publication de métadonnées ;
+    \item l'intégration de solutions au sein des environnements informatiques
+          des clients.
+\end{itemize}
+
+Les utilisateurs de la solution peuvent appartenir aussi bien au secteur public
+qu'au secteur privé. Il peut notamment s'agir de collectivités territoriales,
+d'opérateurs de réseaux, d'établissements publics, de bureaux d'études ou de
+grandes organisations disposant d'un patrimoine important de données
+géographiques.
+
+\medskip
+
+\noindent
+\textbf{Principales activités}
+
+\medskip
+
+Les activités d'Isogeo ne se limitent pas à la mise à disposition d'une
+interface de saisie de métadonnées. Elles couvrent plus largement l'ensemble du
+cycle de gestion d'un catalogue de données géographiques :
+
+\begin{itemize}
+    \item l'inventaire automatisé des données présentes dans le système
+          d'information d'une organisation ;
+    \item la création et la mise à jour de fiches de métadonnées ;
+    \item la centralisation et l'organisation des catalogues ;
+    \item la recherche et la consultation des données disponibles ;
+    \item la diffusion des catalogues au sein d'une organisation ou vers le
+          public ;
+    \item l'intégration des métadonnées dans les outils SIG et les applications
+          métiers ;
+    \item l'accompagnement des clients dans la structuration et la gouvernance
+          de leur patrimoine de données.
+\end{itemize}
+
+Cette approche permet de relier les données effectivement présentes dans les
+infrastructures techniques aux informations documentaires nécessaires à leur
+compréhension et à leur exploitation.
+
+\medskip
+
+\noindent
+\textbf{Produits et services proposés}
+
+\medskip
+
+L'écosystème Isogeo est constitué de plusieurs composants complémentaires.
+La plateforme centrale permet d'administrer les catalogues, de consulter les
+fiches de métadonnées et de gérer leur enrichissement. Le produit Scan assure
+quant à lui l'inventaire des sources de données et l'extraction automatisée
+d'informations techniques.
+
+D'autres composants facilitent ensuite la consultation et la diffusion des
+catalogues. Il s'agit notamment d'OpenCatalog, des plugins destinés aux logiciels
+QGIS et ArcGIS Pro, ainsi que de différents modules et connecteurs permettant
+d'intégrer les métadonnées Isogeo dans des applications tierces.
+\footnote{%
+    \href{https://help.isogeo.com/}
+    {Base de connaissance officielle des produits Isogeo, consultée en
+    juillet 2026.}%
+}
+
+L'entreprise propose également des prestations d'accompagnement, de
+configuration, de formation et d'assistance. Ces services permettent d'adapter
+le déploiement de la solution aux infrastructures, aux pratiques et aux enjeux
+propres à chaque organisme.
+
+% -----------------------------------------------------------------------------
+% 1.1.2 Environnement de travail
+% -----------------------------------------------------------------------------
+
+\subsection{Environnement de travail}
+\label{subsec:environnement_travail}
+
+L'alternance s'est déroulée au sein de l'équipe Produit d'Isogeo. Cette équipe
+intervient dans la conception, le développement, la maintenance et
+l'amélioration continue des différents composants de la solution.
+
+Mon travail a été réalisé sous la responsabilité de
+\ReportCompanyTutor, maître d'apprentissage, et en collaboration avec les
+membres de l'équipe impliqués dans le développement et la maintenance du
+produit Scan.
+
+L'intégration au sein de l'équipe Produit a permis de confronter les
+développements réalisés aux contraintes d'un logiciel utilisé dans des
+environnements clients réels. La mission ne consistait donc pas uniquement à
+produire des scripts fonctionnels. Les solutions proposées devaient également
+être robustes, maintenables, testables et compatibles avec l'architecture
+existante.
+
+\medskip
+
+\noindent
+\textbf{Organisation du travail}
+
+\medskip
+
+Le travail était organisé de manière progressive. Les traitements à étudier
+étaient découpés en tâches distinctes en fonction des sources de données, des
+fonctionnalités attendues et de leur niveau de priorité.
+
+Pour chaque traitement, la démarche générale suivie était la suivante :
+
+\begin{enumerate}
+    \item analyser le fonctionnement du traitement FME existant ;
+    \item identifier ses paramètres d'entrée et son format de sortie ;
+    \item repérer les règles métier et les cas particuliers ;
+    \item rechercher les bibliothèques ou fonctions Python adaptées ;
+    \item développer une première implémentation ;
+    \item tester le traitement sur plusieurs jeux de données ;
+    \item comparer les résultats avec ceux produits par FME ;
+    \item corriger les écarts et documenter la solution.
+\end{enumerate}
+
+Des échanges réguliers avec l'équipe permettaient de présenter l'avancement,
+de valider les orientations techniques et d'identifier les éventuelles
+incompatibilités avec le fonctionnement général de Scan.
+
+Le suivi des développements reposait également sur un système de tickets. Chaque
+ticket décrivait une fonctionnalité, une anomalie ou une amélioration attendue.
+Cette organisation facilitait la priorisation des travaux et permettait de
+conserver une trace des décisions prises.
+
+\medskip
+
+\noindent
+\textbf{Outils utilisés}
+
+\medskip
+
+La réalisation de la mission a nécessité l'utilisation de plusieurs catégories
+d'outils :
+
+\begin{itemize}
+    \item des environnements de développement Python, principalement pour
+          l'écriture, le débogage et l'exécution des scripts ;
+    \item Git pour la gestion des versions du code et le suivi des
+          modifications ;
+    \item FME Form pour consulter et exécuter les workbenches servant de
+          référence ;
+    \item GDAL et OGR pour la lecture et le traitement de nombreux formats de
+          données géographiques ;
+    \item ArcGIS Pro et ArcPy pour certains traitements propres à
+          l'environnement Esri ;
+    \item des systèmes de gestion de bases de données tels que PostgreSQL avec
+          PostGIS, Oracle et Microsoft SQL Server ;
+    \item Docker et des machines virtuelles pour reproduire certains
+          environnements de test ;
+    \item PyInstaller pour préparer la génération d'un exécutable Windows
+          autonome.
+\end{itemize}
+
+L'utilisation conjointe de ces outils était nécessaire pour reproduire la
+diversité des environnements pouvant être rencontrés lors de l'installation de
+Scan chez un client.
+
+\medskip
+
+\noindent
+\textbf{Collaboration et contrôle de la qualité}
+
+\medskip
+
+La collaboration au sein de l'équipe reposait sur des échanges techniques, des
+revues de code et des phases de test. Les modifications étaient enregistrées
+dans le gestionnaire de versions afin de pouvoir suivre leur évolution, les
+comparer et les intégrer progressivement à la branche principale du projet.
+
+Une attention particulière était portée à la lisibilité du code, à la gestion
+des erreurs et à la stabilité des interfaces entre les différents composants.
+Les scripts développés devaient en effet s'intégrer dans une chaîne de
+traitement existante et respecter des formats d'entrée et de sortie déjà
+utilisés par d'autres parties de Scan.
+
+La documentation constituait également un élément important du travail. Elle
+permettait d'expliquer le comportement des traitements, les dépendances
+nécessaires, les paramètres disponibles et les limites identifiées.
+
+% -----------------------------------------------------------------------------
+% 1.1.3 Approche RSE de l'organisme d'accueil
+% -----------------------------------------------------------------------------
+
+\subsection{Approche RSE de l'organisme d'accueil}
+\label{subsec:approche_rse}
+
+La responsabilité sociétale des entreprises, généralement désignée par le sigle
+RSE, correspond à la prise en compte des enjeux environnementaux, sociaux et
+économiques dans les activités et les décisions d'une organisation.
+
+La présente analyse ne constitue pas un audit RSE d'Isogeo. Elle vise plutôt à
+mettre en évidence les liens qui peuvent être établis entre les activités de
+l'entreprise, son organisation et certains principes associés à une démarche
+de responsabilité sociétale.
+
+\medskip
+
+\noindent
+\textbf{Enjeux économiques et gouvernance des données}
+
+\medskip
+
+La principale contribution de la solution Isogeo concerne la gouvernance et la
+valorisation du patrimoine de données des organisations. La mise en place d'un
+catalogue permet de mieux identifier les ressources existantes, leurs
+producteurs, leurs conditions d'utilisation et leur niveau de documentation.
+
+Cette connaissance favorise la réutilisation des données disponibles et limite
+le risque de produire plusieurs fois une information déjà existante. Elle
+contribue également à améliorer la traçabilité des données et à sécuriser les
+processus métiers qui en dépendent.
+
+Pour les organismes publics, une meilleure documentation facilite également la
+diffusion et l'ouverture des données. Elle peut ainsi contribuer à renforcer la
+transparence de l'action publique et l'accès des citoyens aux informations
+produites par les administrations.
+\footnote{%
+    \href{https://www.isogeo.com/actualites/simplifiez-louverture-de-vos-donnees-geospatiales-avec-loffre-passerelle-donnees-quebec}
+    {Isogeo, exemple de catalogage et de publication de données ouvertes,
+    consulté en juillet 2026.}%
+}
+
+\medskip
+
+\noindent
+\textbf{Enjeux environnementaux}
+
+\medskip
+
+Les activités numériques ont un impact environnemental lié notamment à
+l'utilisation des infrastructures informatiques, au stockage des données et à
+la consommation de ressources de calcul. La gestion plus rigoureuse des données
+peut contribuer indirectement à limiter certains traitements inutiles ou
+redondants.
+
+Le fonctionnement de Scan illustre cette logique. Une signature est calculée à
+partir du contenu des données afin de détecter leur modification. Lorsqu'une
+ressource n'a pas changé depuis le scan précédent, il n'est pas nécessaire de
+réaliser à nouveau l'intégralité de sa documentation. Ce mécanisme permet
+d'optimiser le temps de traitement et d'éviter certaines opérations
+inutiles.
+\footnote{%
+    \href{https://www.isogeo.com/actualites/r-d-isogeo---ensg-detection-de-la-modification-des-tables-geographiques}
+    {Isogeo, « Détection de la modification des tables géographiques »,
+    septembre 2022.}%
+}
+
+La migration de traitements FME vers des composants Python autonomes peut
+également participer à une rationalisation de l'architecture technique en
+réduisant le nombre de dépendances nécessaires au fonctionnement du produit.
+Il convient toutefois de rester prudent : aucun gain environnemental précis ne
+peut être affirmé sans mesure comparative de la consommation de ressources
+avant et après la migration.
+
+\medskip
+
+\noindent
+\textbf{Enjeux sociaux et qualité du travail}
+
+\medskip
+
+La documentation et le partage des connaissances occupent une place importante
+dans le fonctionnement de l'équipe. Les revues de code, les échanges techniques
+et la rédaction de documentation contribuent à rendre les développements plus
+compréhensibles et à limiter la dépendance à une seule personne.
+
+L'accueil d'étudiants en stage ou en alternance participe également à la
+transmission des compétences dans les domaines du développement logiciel, de la
+géomatique et de la gouvernance des données.
+
+Enfin, les produits développés par Isogeo cherchent à rendre les données
+géographiques plus facilement accessibles à leurs utilisateurs. En facilitant
+la recherche et la compréhension des données, la solution contribue à réduire
+les obstacles techniques qui peuvent limiter leur exploitation.
+
+% =============================================================================
+% 1.2 PRÉSENTATION DU SUJET D'ALTERNANCE
+% =============================================================================
+
+\section{Présentation du sujet}
+\label{sec:sujet_alternance}
+
+% -----------------------------------------------------------------------------
+% 1.2.1 Contexte technique du produit Scan
+% -----------------------------------------------------------------------------
+
+\subsection{Contexte technique du produit Scan}
+\label{subsec:contexte_scan}
+
+Scan est le composant de la solution Isogeo chargé d'explorer les sources de
+données configurées par un utilisateur. Il identifie les ressources présentes,
+en extrait différentes informations techniques, puis transmet les résultats à
+la plateforme Isogeo afin de créer ou de mettre à jour les fiches de
+métadonnées correspondantes.
+
+Le service installé dans l'environnement du client est appelé
+\textit{Isogeo Worker}. Il s'exécute sur une machine Windows disposant des
+droits nécessaires pour consulter les sources ciblées. Les opérations réalisées
+par Scan sont des opérations de lecture : elles n'ont pas pour objectif de
+modifier les données des clients.
+\footnote{%
+    \href{https://help.isogeo.com/doc-scan-fme/support/exe/}
+    {Documentation officielle de Scan, présentation du sous-programme
+    d'extraction de métadonnées, consultée en juillet 2026.}%
+}
+
+Le traitement d'une source peut être résumé en trois opérations principales.
+
+\medskip
+
+\noindent
+\textbf{Le listing}
+
+\medskip
+
+Le listing consiste à inventorier les ressources accessibles à partir d'un
+point d'entrée. Selon le type de source, une ressource peut correspondre à une
+table, une vue, une couche géographique, un fichier ou un jeu de données.
+
+Cette étape permet à Scan de connaître la liste des éléments disponibles avant
+de décider lesquels doivent être analysés plus en détail.
+
+\medskip
+
+\noindent
+\textbf{La signature}
+
+\medskip
+
+La signature correspond à une empreinte calculée à partir du contenu d'une
+ressource. Elle permet à Scan de reconnaître une donnée déjà rencontrée et de
+détecter si son contenu a été modifié entre deux exécutions.
+
+Cette information joue un rôle important dans la mise à jour du catalogue. Si
+une donnée n'a pas changé, certains traitements peuvent être évités. Si sa
+signature évolue, Scan peut au contraire déclencher une nouvelle extraction de
+ses métadonnées.
+
+\medskip
+
+\noindent
+\textbf{L'extraction des métadonnées}
+
+\medskip
+
+L'étape d'extraction, également appelée \textit{lookup} dans la documentation
+technique de Scan, produit les informations décrivant la ressource analysée.
+
+Selon la nature de la donnée, les informations extraites peuvent notamment
+comprendre :
+
+\begin{itemize}
+    \item le nom et l'emplacement de la ressource ;
+    \item son format ;
+    \item le système de coordonnées ;
+    \item le nombre d'entités ou d'enregistrements ;
+    \item le type de géométrie ;
+    \item les coordonnées de l'emprise spatiale ;
+    \item une enveloppe convexe ;
+    \item les noms, types, alias, tailles et précisions des champs ;
+    \item certaines propriétés propres aux données raster ;
+    \item différentes informations techniques utiles à la création de la fiche
+          de métadonnées.
+\end{itemize}
+
+Les résultats sont structurés de manière à pouvoir être interprétés par les
+autres composants de Scan. La nouvelle implémentation Python doit donc respecter
+le contrat de données déjà utilisé par le produit, notamment la structure des
+résultats, les paramètres d'exécution et les codes d'erreur.
+
+\medskip
+
+\noindent
+\textbf{Diversité des sources prises en charge}
+
+\medskip
+
+Scan doit fonctionner dans des environnements techniques variés. Les données
+peuvent être stockées dans :
+
+\begin{itemize}
+    \item une base PostgreSQL avec l'extension spatiale PostGIS ;
+    \item une base Oracle ou Oracle Spatial ;
+    \item une base Microsoft SQL Server ;
+    \item une géodatabase d'entreprise Esri ;
+    \item une géodatabase fichier Esri ;
+    \item différents formats de fichiers vectoriels, raster ou tabulaires ;
+    \item certains services géographiques.
+\end{itemize}
+
+Cette diversité constitue l'une des principales difficultés du produit. Chaque
+source possède ses propres méthodes de connexion, ses types de données, ses
+fonctions spatiales et ses comportements particuliers. Une opération simple,
+comme déterminer le nombre d'entités ou calculer une enveloppe convexe, peut
+ainsi nécessiter une implémentation différente selon la technologie utilisée.
+
+% -----------------------------------------------------------------------------
+% 1.2.2 Problématique de migration des traitements FME
+% -----------------------------------------------------------------------------
+
+\subsection{Problématique de migration des traitements FME}
+\label{subsec:problematique_fme}
+
+FME est une plateforme spécialisée dans l'intégration et la transformation de
+données. Elle propose de nombreux lecteurs, écrivains et composants de
+traitement adaptés aux données géographiques. Elle a donc historiquement occupé
+une place importante dans le fonctionnement de Scan.
+
+Plusieurs traitements étaient décrits au moyen de workbenches FME. Ces chaînes
+graphiques permettaient notamment de se connecter aux sources, de parcourir les
+ressources disponibles, de calculer certaines informations géométriques et de
+produire les résultats attendus par Scan.
+
+Le choix d'engager une migration ne remet pas en cause les capacités
+fonctionnelles de FME. Il répond avant tout à de nouveaux besoins
+d'industrialisation et d'autonomie du produit.
+
+\medskip
+
+\noindent
+\textbf{Dépendance à un logiciel externe}
+
+\medskip
+
+L'exécution des workbenches nécessite la présence d'une installation FME
+compatible ainsi que d'une licence disponible. Le fonctionnement de Scan dépend
+donc d'un logiciel tiers qui doit être installé, configuré et maintenu dans
+l'environnement du client.
+
+Cette dépendance augmente le nombre de prérequis techniques nécessaires au
+déploiement du produit. Elle peut également compliquer les opérations de support
+lorsqu'un problème dépend de la version de FME, de l'activation de la licence ou
+d'un composant particulier de l'installation.
+
+La documentation de support de Scan indique notamment que la disponibilité de
+la licence FME et la compatibilité de l'environnement font partie des éléments
+à contrôler lors du diagnostic d'une exécution.
+\footnote{%
+    \href{https://help.isogeo.com/doc-scan-fme/support/support/}
+    {Documentation officielle de support de Scan, consultée en juillet 2026.}%
+}
+
+\medskip
+
+\noindent
+\textbf{Maintenance des traitements}
+
+\medskip
+
+Les workbenches FME offrent une représentation graphique des traitements, mais
+leur maintenance peut devenir complexe lorsque le nombre de scénarios, de
+sources et de cas particuliers augmente.
+
+Certaines logiques peuvent être réparties entre plusieurs composants ou
+plusieurs fichiers. La comparaison des versions, la factorisation du code et la
+mise en place de tests automatisés sont également différentes de celles
+habituellement utilisées dans un projet logiciel développé en Python.
+
+Une implémentation Python permet de regrouper les comportements communs dans des
+classes et des fonctions réutilisables. Elle facilite également l'utilisation
+d'outils de contrôle de qualité, de tests unitaires, de tests d'intégration et
+de gestion de versions.
+
+\medskip
+
+\noindent
+\textbf{Intégration dans l'architecture de Scan}
+
+\medskip
+
+Le remplacement des workbenches par des composants Python permet de rapprocher
+les traitements de données du reste du code applicatif. Les paramètres, les
+journaux d'exécution, les erreurs et les résultats peuvent être gérés de manière
+plus homogène.
+
+La solution peut également être distribuée sous la forme d'un exécutable
+Windows autonome. L'objectif est que le client puisse exécuter les traitements
+sans avoir à installer Python ni à gérer manuellement l'ensemble des
+bibliothèques utilisées.
+
+\medskip
+
+\noindent
+\textbf{Besoin de continuité fonctionnelle}
+
+\medskip
+
+La migration ne peut toutefois pas se limiter à produire des résultats
+approximativement similaires. Les nouveaux traitements doivent conserver le
+comportement attendu par les autres composants de Scan.
+
+Ils doivent notamment respecter :
+
+\begin{itemize}
+    \item les paramètres de connexion existants ;
+    \item la structure des données retournées ;
+    \item les conventions de nommage ;
+    \item les règles de calcul des métadonnées ;
+    \item les codes d'erreur attendus ;
+    \item les performances nécessaires au traitement de volumes importants ;
+    \item les particularités des différentes sources.
+\end{itemize}
+
+La difficulté principale réside donc dans la reproduction fidèle d'un
+comportement existant tout en modifiant profondément la technologie utilisée
+pour l'obtenir.
+
+Ce chantier s'inscrit dans une évolution plus générale du produit. Isogeo a
+annoncé en 2026 l'avancement du Scan sans FME, avec pour objectif de supprimer
+progressivement FME des prérequis nécessaires à la plateforme.
+\footnote{%
+    \href{https://www.isogeo.com/actualites/2-journee-communaute-isogeo-retours-terrain-nouveautes-produit-et-ia-geospatiale}
+    {Isogeo, « 2\ieme{} Journée Communauté Isogeo », juin 2026.}%
+}
+
+% -----------------------------------------------------------------------------
+% 1.2.3 Reformulation du sujet
+% -----------------------------------------------------------------------------
+
+\subsection{Reformulation du sujet}
+\label{subsec:reformulation_sujet}
+
+Le sujet de cette alternance peut être reformulé de la manière suivante :
+
+\begin{quote}
+    \itshape
+    Concevoir, développer et valider une solution Python capable de remplacer
+    progressivement les traitements FME utilisés par Scan pour inventorier et
+    documenter différentes sources de données, puis préparer son exécution
+    autonome dans un environnement Windows.
+\end{quote}
+
+La mission ne consistait donc pas à développer un nouveau produit indépendant,
+mais à faire évoluer un composant existant en conservant sa compatibilité avec
+le reste de l'écosystème Isogeo.
+
+\medskip
+
+\noindent
+\textbf{Périmètre de la mission}
+
+\medskip
+
+Le périmètre des travaux comprenait principalement :
+
+\begin{itemize}
+    \item l'étude des workbenches FME existants ;
+    \item l'identification des traitements à migrer ;
+    \item la compréhension des formats d'entrée et de sortie ;
+    \item le développement de composants Python dédiés aux différentes sources ;
+    \item l'utilisation de GDAL/OGR pour les traitements de données
+          géographiques ;
+    \item l'utilisation de bibliothèques ou d'API spécifiques lorsque
+          GDAL/OGR ne permettait pas de reproduire le comportement attendu ;
+    \item la gestion des paramètres de connexion ;
+    \item l'extraction des attributs et des propriétés géométriques ;
+    \item la gestion des erreurs et des données invalides ;
+    \item la comparaison des résultats Python avec ceux de FME ;
+    \item la construction de jeux de tests de régression ;
+    \item la préparation du packaging de l'application avec PyInstaller ;
+    \item la production d'un exécutable Windows destiné à fonctionner sans
+          installation locale de Python.
+\end{itemize}
+
+Les principales sources étudiées comprenaient notamment PostgreSQL/PostGIS,
+Oracle, Microsoft SQL Server, les géodatabases Esri ainsi que plusieurs formats
+de données vectorielles et raster.
+
+\medskip
+
+\noindent
+\textbf{Limites du travail}
+
+\medskip
+
+Le projet s'inscrit dans une migration progressive. Il n'avait donc pas pour
+objectif de réécrire simultanément l'ensemble du produit Scan ni de prendre en
+charge immédiatement tous les formats supportés historiquement par FME.
+
+Le travail portait principalement sur les traitements de lecture, d'inventaire,
+de calcul et d'extraction des métadonnées. Les interfaces web de Scan, la
+plateforme centrale Isogeo et les fonctionnalités de gestion des catalogues ne
+faisaient pas partie du périmètre principal de la mission.
+
+Certaines limitations dépendaient également des technologies utilisées. Les
+géodatabases Esri nécessitent, par exemple, la présence de composants et de
+licences propres à l'écosystème ArcGIS. De même, les comportements des systèmes
+de gestion de bases de données peuvent varier en fonction de leur version, de
+leur configuration et des droits accordés à l'utilisateur.
+
+Enfin, les traitements FME existants ont été conservés comme référence pendant
+la phase de migration. Leur maintien permettait de comparer les résultats,
+d'identifier les écarts et de vérifier que la nouvelle solution respectait le
+comportement historique attendu par Scan.
+
+La réussite de la mission dépendait donc autant de la qualité du développement
+Python que de la mise en place d'une méthode de validation suffisamment fiable
+pour démontrer l'équivalence des traitements.
