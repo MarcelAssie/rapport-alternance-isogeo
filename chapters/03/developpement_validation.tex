@@ -1,0 +1,385 @@
+% =============================================================================
+% CHAPITRE 3 -- DEVELOPPEMENT PROGRESSIF DES TRAITEMENTS PYTHON
+% =============================================================================
+
+\chapter{Développement des scripts Python}
+\label{chap:developpement_validation}
+
+% =============================================================================
+% 3.1 ORGANISATION GENERALE DES DEVELOPPEMENTS
+% =============================================================================
+
+\section{Organisation générale des développements}
+\label{sec:organisation_developpements}
+
+% -----------------------------------------------------------------------------
+% 3.1.1 Une progression par formats de données
+% -----------------------------------------------------------------------------
+
+\subsection{Une progression par formats de données}
+\label{subsec:progression_sources}
+
+Le développement des nouveaux traitements Python ne s'est pas fait en une seule
+fois. Il a été réalisé progressivement, format par format en fonction des
+priorités du produit et des difficultés rencontrées.
+
+Cette organisation permettait de travailler par étapes. Pour chaque format, il
+fallait comprendre les données disponibles, identifier les métadonnées utiles,
+développer le traitement adapté, puis vérifier les résultats obtenus.
+
+Le travail a d'abord porté sur des formats qui étaient les plus utilisés par les clients de l'entreprise, comme les
+fichiers rasters et vectoriels. Il s'est ensuite poursuivi avec des formats ou
+technologies plus spécifiques : GeoPackage, données CAO, Oracle, GeoParquet,
+SQL Server et, plus récemment, Nuage des points.
+
+Cette progression correspondait aussi à la manière dont la migration devait être
+menée dans Scan. Chaque ajout devait rester compatible avec le fonctionnement
+existant du produit. Il ne s'agissait donc pas seulement de lire une donnée, mais
+de produire une sortie exploitable par les autres composants.
+
+% Image à inclure :
+% Une frise simple montrant l'ordre de prise en charge des formats :
+% rasters/vecteurs, GeoPackage, CAO, Oracle, GeoParquet, SQL Server,
+% Nuage des points.
+
+% -----------------------------------------------------------------------------
+% 3.1.2 Périmètre fonctionnel selon les formats
+% -----------------------------------------------------------------------------
+
+\subsection{Périmètre fonctionnel selon les formats}
+\label{subsec:perimetre_sources}
+
+Le périmètre n'était pas identique pour tous les formats. Certains ont fait
+l'objet d'un travail de documentation des métadonnées. D'autres ont nécessité
+des traitements complémentaires, comme le listing ou la signature.
+
+Pour les fichiers rasters, vectoriels et CAO, le travail réalisé concernait
+uniquement la documentation. L'objectif était d'extraire les informations
+techniques nécessaires à la création ou à la mise à jour des fiches de
+métadonnées dans Scan. Le listing et la signature n'ont pas été développés pour
+ces formats, car ils pouvaient être réalisés directement par le client de Scan.
+
+Pour les formats suivants, le périmètre dépendait des besoins du produit, de la
+nature des données et des possibilités offertes par les bibliothèques utilisées.
+Cette approche progressive permettait d'avancer sans figer trop tôt une solution
+unique qui n'aurait pas forcément convenu à toutes les technologies.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{>{\bfseries}p{3.2cm}X}
+\toprule
+Format ou technologie & Travail réalisé ou en cours \\
+\midrule
+Rasters, vecteurs et CAO & Documentation. \\
+GeoPackage & Inventaire, documentation et signature. \\
+Oracle & Inventaire, documentation et signature. \\
+GeoParquet & Documentation. \\
+SQL Server & Inventaire, documentation et signature. \\
+Nuage des points & Travaux en cours sur l'inventaire, la documentation et la signature. \\
+\bottomrule
+\end{tabularx}
+\caption{Progression des développements selon les formats étudiés}
+\label{tab:progression_sources_developpement}
+\end{table}
+
+% =============================================================================
+% 3.2 PREMIERS DEVELOPPEMENTS SUR LES FICHIERS GEOGRAPHIQUES
+% =============================================================================
+
+\section{Développements sur les fichiers géographiques}
+\label{sec:premiers_developpements_fichiers}
+
+% -----------------------------------------------------------------------------
+% 3.2.1 Données rasters et vectorielles
+% -----------------------------------------------------------------------------
+
+\subsection{Données rasters et vectorielles}
+\label{subsec:donnees_rasters_vecteurs}
+
+Les premiers développements ont porté sur les données rasters et vectorielles.
+Ces formats constituaient un bon point d'entrée, car ils permettaient de
+travailler sur des formats fréquents dans les usages géomatiques.
+
+Pour les données vectorielles, deux formats ont été pris en compte dans un
+premier temps : le Shapefile et le GeoJSON. Ces formats sont très utilisés pour
+échanger des couches géographiques. Le traitement devait donc être capable de
+lire la couche, d'identifier sa géométrie, de récupérer les champs attributaires
+et de produire les métadonnées attendues par Scan.
+
+Pour les données rasters, plusieurs formats ont été pris en charge, notamment
+\texttt{ECW}, GeoTIFF, \texttt{JP2}, \texttt{JPG}, \texttt{PNG} et d'autres
+formats courants. Les informations à extraire n'étaient pas exactement les mêmes
+que pour les données vectorielles. Il fallait par exemple tenir compte de la
+taille de l'image, du nombre de bandes, du système de coordonnées et de
+l'emprise.
+
+Pour cette première partie, seule la documentation (lookup) a été développée.
+Le but était de produire une description fiable de la ressource analysée, sans
+développer le listing ni la signature, qui pouvaient déjà être réalisés par le
+client de Scan pour ces formats.
+
+GDAL et OGR ont été utilisés pour accéder à ces informations. Ces bibliothèques
+offrent une interface commune pour lire de nombreux formats. Elles permettent
+donc de limiter le nombre de traitements spécifiques à écrire pour chaque type
+de fichier.
+
+Ce premier travail a permis de mettre en place une base de développement. Il a
+aussi permis d'identifier les premières différences de comportement entre les
+formats, notamment sur la manière dont les systèmes de coordonnées, les champs
+ou l'enveloppe convexe sont exposés.
+
+% Image à inclure :
+% Une capture d'un résultat de documentation sur un format raster ou vectoriel.
+
+% -----------------------------------------------------------------------------
+% 3.2.2 GeoPackage
+% -----------------------------------------------------------------------------
+
+\subsection{GeoPackage}
+\label{subsec:geopackage}
+
+Le travail s'est ensuite poursuivi avec le format GeoPackage. Il s'agit d'un
+format de fichier permettant de stocker plusieurs couches géographiques dans un
+même fichier. Il est souvent utilisé pour échanger des données tout en conservant
+une structure proche d'une petite base de données.
+
+La prise en charge de GeoPackage nécessitait donc de parcourir les couches
+présentes dans le fichier, puis de produire les informations attendues pour
+chacune d'elles. Le traitement devait rester cohérent avec la logique de Scan :
+une ressource identifiée devait pouvoir être documentée de manière claire et
+stable.
+
+Le développement a porté sur les trois traitements attendus : l'inventaire, la
+documentation et la signature. L'inventaire permettait de lister les couches
+présentes dans le fichier. La documentation produisait les métadonnées de chaque
+couche. La signature permettait ensuite de détecter les changements entre deux
+analyses.
+
+Ce format demandait une attention particulière, car un seul fichier peut contenir
+plusieurs couches. Il fallait donc bien distinguer la ressource globale du
+fichier et les couches réellement exploitées par Scan. Les résultats ont été
+vérifiés sur plusieurs jeux de données afin de contrôler la cohérence des
+sorties.
+
+GeoPackage a aussi permis de confirmer l'importance d'une architecture souple.
+Même si le format est stocké dans un fichier, son fonctionnement se rapproche
+sur certains points d'une base de données. Le code devait donc éviter de traiter
+tous les fichiers de manière trop uniforme.
+
+% -----------------------------------------------------------------------------
+% 3.2.3 GeoParquet
+% -----------------------------------------------------------------------------
+
+\subsection{GeoParquet}
+\label{subsec:geoparquet}
+
+GeoParquet a ensuite été étudié comme format de stockage géographique plus
+récent. Il s'appuie sur le format Parquet, souvent utilisé pour stocker des
+données de manière efficace, notamment dans des contextes d'analyse.
+
+L'objectif était d'identifier les informations disponibles dans ce format et de
+voir comment les exploiter pour produire les métadonnées attendues par Scan. Le
+traitement devait notamment retrouver les informations géographiques, les champs
+et les éléments nécessaires à la description de la ressource.
+
+Pour ce format, le travail a porté sur la documentation. Il fallait comprendre
+comment les informations spatiales étaient stockées dans le fichier et comment
+retrouver les éléments utiles : champs, géométrie, système de coordonnées et
+emprise. Ce format a nécessité une phase d'expérimentation, car il ne se
+présente pas de la même manière qu'un fichier SIG traditionnel.
+
+Les informations utiles ne sont pas toujours exposées avec les mêmes conventions
+que dans d'autres formats. Le traitement devait donc rester prudent dans la
+lecture des métadonnées et dans l'interprétation des informations géographiques.
+
+La prise en charge de GeoParquet a donc permis d'élargir le périmètre de la
+migration vers des formats plus modernes, tout en conservant la même exigence :
+produire des résultats exploitables et comparables dans Scan.
+
+% -----------------------------------------------------------------------------
+% 3.2.4 Données CAO
+% -----------------------------------------------------------------------------
+
+\subsection{Données CAO}
+\label{subsec:donnees_cao}
+
+Une autre étape a concerné les données CAO. Ces données proviennent du dessin
+assisté par ordinateur et ne suivent pas toujours les mêmes logiques que les
+données SIG classiques.
+
+Le travail sur ces formats a d'abord été engagé avec GDAL et OGR, comme pour les
+premiers formats étudiés. Cette piste semblait cohérente, car ces bibliothèques
+permettaient déjà de lire plusieurs types de données géographiques.
+
+Cependant, cette approche a rapidement montré ses limites. Le format
+\texttt{DWG}, important pour les données CAO, n'était pas pris en charge par
+GDAL et OGR. Il a donc fallu rechercher une autre solution pour pouvoir exploiter
+ces données dans le cadre de Scan.
+
+Après cette phase d'étude, la solution retenue a été \textit{LibreDWG}. Elle a
+permis de traiter les données CAO et d'en extraire les informations réellement
+exploitables pour la documentation. Ces formats peuvent contenir des structures
+particulières, des géométries différentes ou des informations moins directement
+normalisées.
+
+Certaines limitations dépendaient des technologies utilisées. Les formats
+\texttt{SDF} et \texttt{DGN} ont notamment dû être mis de côté, car leur prise en
+charge n'était pas suffisamment fiable dans le contexte de la migration.
+
+Pour les données CAO, le travail est donc resté centré sur la documentation.
+L'objectif était d'extraire les informations réellement disponibles et utiles à
+Scan, sans chercher à forcer une interprétation SIG complète lorsque le format ne
+s'y prêtait pas. Cette étape a montré qu'une migration ne consiste pas toujours à
+tout reprendre immédiatement. Dans certains cas, il est préférable d'identifier
+clairement les limites, de documenter les raisons du blocage et de concentrer les
+efforts sur les formats pouvant être traités de manière fiable.
+
+% =============================================================================
+% 3.3 DEVELOPPEMENTS SUR LES BASES DE DONNEES
+% =============================================================================
+
+\section{Développements sur les bases de données}
+\label{sec:bases_formats_avances}
+
+Pour les bases de données, le choix a été différent de celui retenu pour les
+formats fichiers. Nous avons privilégié l'utilisation de bibliothèques natives,
+basées sur l'exécution de requêtes SQL. Cette approche permettait de s'appuyer
+sur les capacités propres des bases de données et de bénéficier de leurs
+performances, notamment lorsque les volumes à traiter étaient importants.
+
+% -----------------------------------------------------------------------------
+% 3.3.1 Oracle
+% -----------------------------------------------------------------------------
+
+\subsection{Oracle}
+\label{subsec:oracle}
+
+Après les premiers travaux sur les fichiers, le développement s'est poursuivi
+sur Oracle. Cette technologie introduisait des contraintes différentes, car les
+données sont stockées dans une base relationnelle, avec des paramètres de
+connexion, des schémas, des tables et des droits d'accès.
+
+Le traitement devait donc gérer la connexion à la base, identifier les tables
+accessibles et récupérer les informations utiles à la documentation. Il fallait
+aussi tenir compte des particularités d'Oracle Spatial pour les données
+géographiques.
+
+Pour Oracle, la bibliothèque \textit{python-oracledb} a été utilisée. Elle
+permettait d'exécuter directement les requêtes nécessaires pour l'inventaire, la
+documentation et la signature. Cette solution évitait de rapatrier inutilement
+les données côté Python lorsque la base pouvait réaliser elle-même certaines
+opérations.
+
+Cette étape a demandé une attention particulière sur la robustesse. Une base de
+données peut être inaccessible, une table peut ne pas contenir de géométrie ou
+un utilisateur peut ne pas avoir les droits nécessaires. Le traitement devait
+donc produire un comportement clair dans ces situations.
+
+Le travail sur Oracle a renforcé l'idée que chaque format ou technologie possède
+ses propres contraintes. Même lorsque les métadonnées recherchées sont proches,
+la manière de les obtenir peut changer fortement selon la technologie.
+
+% -----------------------------------------------------------------------------
+% 3.3.2 SQL Server
+% -----------------------------------------------------------------------------
+
+\subsection{SQL Server}
+\label{subsec:sql_server}
+
+Le développement a également concerné Microsoft SQL Server. Comme pour Oracle,
+il s'agit d'une base relationnelle pouvant contenir des données spatiales.
+
+La prise en charge de cette technologie impliquait de gérer les paramètres de
+connexion, les bases, les schémas et les tables accessibles. Il fallait aussi
+tenir compte des types géographiques disponibles dans SQL Server et de la façon
+dont les informations spatiales peuvent être interrogées.
+
+Pour SQL Server, le choix s'est porté sur \textit{SQLAlchemy}. Cette bibliothèque
+permettait de structurer les accès à la base tout en conservant une logique
+reposant sur des requêtes SQL. Comme pour Oracle, l'objectif était de profiter
+des capacités de la base pour limiter les traitements inutiles côté application.
+
+Le travail a consisté à adapter les traitements aux spécificités de cet
+environnement, tout en conservant une sortie cohérente avec les autres formats
+et technologies.
+L'objectif restait le même : permettre à Scan de recenser ou documenter les
+ressources sans dépendre des anciens traitements.
+
+Cette étape a aussi permis de renforcer la gestion des erreurs et des cas
+particuliers. Les bases de données apportent souvent plus de variabilité que les
+fichiers, car leur contenu dépend de l'organisation mise en place chez chaque
+client.
+
+% =============================================================================
+% 3.4 TRAVAUX SUR LE NUAGE DES POINTS
+% =============================================================================
+
+\section{Traitement des nuages de points}
+\label{sec:nuage_des_points}
+
+Les travaux les plus récents portent sur le Nuage des points. Ce type de donnée
+est particulier, car il peut représenter des volumes très importants et ne se
+manipule pas comme une couche vectorielle classique.
+
+L'objectif est d'identifier les métadonnées pertinentes pour décrire ces
+ressources dans Scan. Il faut notamment comprendre les informations disponibles,
+les formats utilisés et les limites liées au volume des données.
+
+Cette partie est encore en cours. Elle nécessite de prendre en compte les
+contraintes de performance, car les fichiers peuvent être très lourds. Le
+traitement doit donc éviter les opérations trop coûteuses lorsque seules
+certaines métadonnées sont nécessaires.
+
+Le Nuage des points illustre bien la logique progressive de la migration. Chaque
+nouveau format apporte ses propres contraintes et oblige à adapter les
+traitements sans perdre la cohérence générale de la solution.
+
+% Image à inclure :
+% Une capture ou un schéma simple représentant une donnée de type Nuage des points.
+
+% =============================================================================
+% 3.5 PACKAGING ET EXECUTABLE AU FIL DES DEVELOPPEMENTS
+% =============================================================================
+
+\section{Packaging et exécutable au fil des développements}
+\label{sec:packaging_fil_developpements}
+
+% -----------------------------------------------------------------------------
+% 3.5.1 Réutilisation de l'environnement Docker
+% -----------------------------------------------------------------------------
+
+\subsection{Réutilisation de l'environnement Docker}
+\label{subsec:reutilisation_docker}
+
+La génération de l'exécutable n'a pas été traitée comme une étape finale
+indépendante. Une fois l'image Docker de construction mise en place, elle a été
+réutilisée au fur et à mesure de l'avancement des scripts.
+
+Cette organisation permettait de vérifier régulièrement que les développements
+pouvaient toujours être intégrés dans un exécutable Windows. Elle évitait de
+découvrir trop tard un problème lié au packaging ou à une dépendance.
+
+Docker restait le seul prérequis pour générer l'exécutable. L'environnement de
+construction contenait les versions nécessaires de Python, PyInstaller, GDAL et
+des autres bibliothèques utilisées par Scan.
+
+% -----------------------------------------------------------------------------
+% 3.5.2 Vérification de l'exécutable
+% -----------------------------------------------------------------------------
+
+\subsection{Vérification de l'exécutable}
+\label{subsec:verification_executable}
+
+Après l'ajout ou la modification de certains traitements, l'exécutable pouvait
+être régénéré afin de vérifier son bon fonctionnement. Les tests portaient alors
+sur l'exécution du programme, la présence des dépendances nécessaires et la
+cohérence des résultats produits.
+
+Une attention particulière était portée aux bibliothèques géospatiales, car
+elles reposent sur des dépendances natives. Le packaging devait donc embarquer
+les éléments nécessaires pour éviter de dépendre d'une installation locale sur
+la machine utilisée.
+
+Cette vérification régulière permettait de garder un lien direct entre les
+scripts développés et leur utilisation réelle dans Scan. Elle contribuait aussi
+à sécuriser progressivement la migration vers une solution Python autonome.
