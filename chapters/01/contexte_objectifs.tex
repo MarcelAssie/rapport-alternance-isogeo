@@ -6,6 +6,71 @@
 \chapter{Contexte et objectifs de l'alternance}
 \label{chap:contexte_objectifs}
 
+\section{Introduction}
+\label{sec:introduction_chapitre_1}
+
+Les données géographiques occupent une place importante dans le fonctionnement
+de nombreuses organisations. Elles sont utilisées dans des domaines variés tels
+que l'aménagement du territoire, la gestion des réseaux, l'environnement, les
+transports ou encore l'urbanisme. Cependant, ces données sont souvent réparties
+entre plusieurs bases de données, serveurs, répertoires de fichiers et
+applications métiers. Cette dispersion peut rendre leur identification, leur
+compréhension et leur réutilisation difficiles.
+
+Isogeo développe des solutions permettant aux organisations de mieux recenser,
+documenter et valoriser leur patrimoine de données géographiques. Parmi ces
+solutions, le produit Scan permet d'explorer différentes sources de données,
+d'identifier les ressources qu'elles contiennent et d'en extraire les
+informations techniques nécessaires à leur catalogage. Il peut notamment
+analyser des bases PostgreSQL/PostGIS, Oracle et Microsoft SQL Server, des
+géodatabases d'entreprise Esri ainsi que plusieurs formats de fichiers
+géographiques.
+
+Historiquement, l'ensemble des traitements réalisés par Scan reposait sur des
+workbenches FME. Ces traitements permettaient de parcourir les différentes
+sources, d'analyser les ressources disponibles et de produire les informations
+attendues par le produit. Toutefois, cette organisation rendait le
+fonctionnement de Scan dépendant de l'installation et de la licence d'un
+logiciel externe.
+
+Dans une démarche d'évolution du produit, Isogeo a donc engagé la migration
+progressive de l'ensemble de ces traitements FME vers une solution développée
+en Python. L'objectif est de rendre Scan plus autonome, de faciliter la
+maintenance de ses traitements et de permettre leur exécution sous la forme
+d'un programme Windows ne nécessitant pas l'installation préalable de Python ou
+de FME.
+
+Mon alternance s'inscrit dans ce contexte. Ma mission principale consiste à
+poursuivre cette migration en analysant les traitements existants, leurs
+entrées, leurs sorties et les règles métier qu'ils appliquent, puis en
+développant des scripts Python capables de produire des résultats équivalents.
+Elle comprend également la prise en charge de différentes sources de données,
+la gestion des erreurs, la mise en place de tests comparatifs et la préparation
+d'un exécutable Windows autonome.
+
+La problématique générale de ce travail peut ainsi être formulée de la manière
+suivante :
+
+\begin{quote}
+\textit{Comment remplacer intégralement les traitements FME utilisés par Scan
+par une solution Python autonome, tout en garantissant la fiabilité des
+résultats et la compatibilité avec les différentes sources de données prises en
+charge ?}
+\end{quote}
+
+Pour répondre à cette problématique, le travail a été organisé autour de
+l'analyse de l'existant, du développement des nouveaux traitements, de leur
+intégration dans l'architecture de Scan et de leur validation par comparaison
+avec les résultats FME de référence.
+
+Ce rapport est structuré en quatre chapitres. Le premier présente le contexte de
+l'alternance, l'entreprise Isogeo, le produit Scan ainsi que les objectifs de la
+mission. Le deuxième expose l'analyse de l'existant et les choix techniques
+retenus pour concevoir la solution. Le troisième décrit les développements
+réalisés, la préparation de l'exécutable et la démarche de validation. Enfin, le
+quatrième présente les résultats obtenus, les apports de l'alternance, les
+limites rencontrées et les perspectives du projet.
+
 
 % =============================================================================
 % 1.1 PRÉSENTATION DU CONTEXTE GÉNÉRAL
