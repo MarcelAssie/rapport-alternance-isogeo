@@ -12,26 +12,28 @@ facilitating the inventory, documentation and enhancement of geospatial data.
 Scan supports databases, enterprise geodatabases and several geospatial file
 formats.
 
-
-Historically, all of these processes relied on FME workbenches, resulting in an external dependency and additional licensing costs.
-. ISOGEO therefore began progressively replacing them with Python scripts integrated directly into the
-product. My work-study assignment consisted in continuing this migration,
-which had already been initiated for sources such as PostGIS and Esri
-enterprise geodatabases.
+Historically, all of these processes relied on FME workbenches, resulting in an
+external dependency and additional licensing costs. ISOGEO therefore began
+progressively replacing them with Python scripts integrated directly into the
+product. My work-study assignment consisted in continuing this migration, which
+had already been initiated for sources such as PostGIS and Esri enterprise
+geodatabases.
 
 After analysing and documenting the existing developments, I contributed to
 the implementation of processing components for several sources, including
-vector and raster data, GeoPackage, Oracle and SQL Server. These scripts extract
-the tables, fields, coordinate reference systems, geometries, spatial extents
-and other metadata required by Scan. They also generate data signatures.
+vector and raster data, GeoPackage, CAD data, Oracle, SQL Server and
+GeoParquet. The most recent work also focused on point cloud data in LAS and LAZ
+formats. These scripts extract the tables, fields, coordinate reference systems,
+geometries, spatial extents and other metadata required by Scan. They also
+generate data signatures.
 
 GDAL/OGR was the main library used, together with additional libraries adapted
-to specific formats. The scripts were then organised within a modular
-architecture and prepared for distribution as a standalone Windows executable
-using PyInstaller. This executable is built in a Docker environment to ensure a
-reproducible process independent of the libraries installed on the developer's
-computer. Regression tests also make it possible to compare the results with
-those produced by the former FME workflows.
+to specific formats, such as LibreDWG or even SQLAlchemy. The scripts were then
+organised within a modular architecture and prepared for distribution as a
+standalone Windows executable using PyInstaller. This executable is built in a
+Docker environment to ensure a reproducible process independent of the libraries
+installed on the developer's computer. Regression tests and signature integrity
+tests are also used to validate the processing components.
 
 This work contributes to reducing Scan's dependency on FME, facilitating the
 maintenance of its processing components and strengthening their integration
@@ -41,6 +43,6 @@ into ISOGEO's software environment.
 
 \noindent
 \textbf{Keywords:}
-geomatics; Scan; ISOGEO; Python; FME; GDAL/OGR; metadata; spatial databases;
-Docker; PyInstaller; regression testing.
-
+geomatics; Scan; ISOGEO; Python; FME migration; metadata; data signature;
+GDAL/OGR; GeoPackage; GeoParquet; CAD; spatial databases; point clouds; Docker;
+PyInstaller.

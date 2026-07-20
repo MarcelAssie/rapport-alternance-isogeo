@@ -18,17 +18,19 @@
 
 \begin{longtable}{
     @{}
-    >{\bfseries}p{0.18\textwidth}
-    p{0.76\textwidth}
+    >{\bfseries\raggedright\arraybackslash}p{0.18\textwidth}
+    >{\raggedright\arraybackslash}p{0.76\textwidth}
     @{}
 }
 
 \toprule
+\TableHeader
 Sigle & Signification \\
 \midrule
 \endfirsthead
 
 \toprule
+\TableHeader
 Sigle & Signification \\
 \midrule
 \endhead
@@ -42,15 +44,10 @@ API
 composants logiciels ou applications de communiquer entre eux.
 \\
 
-BDD
+CAO
 &
-Base de données.
-\\
-
-CLI
-&
-\textit{Command-Line Interface}. Interface en ligne de commande permettant
-d'exécuter et de paramétrer un programme depuis un terminal.
+Conception assistée par ordinateur. Domaine regroupant les outils et formats de
+dessin technique, comme les fichiers \texttt{DWG} ou \texttt{DXF}.
 \\
 
 CRS
@@ -59,22 +56,27 @@ CRS
 utilisé pour localiser des objets géographiques.
 \\
 
-DLL
+DGN
 &
-\textit{Dynamic Link Library}. Bibliothèque dynamique utilisée par les
-applications Windows pour partager des fonctions et des dépendances.
+Format de fichier CAO notamment associé à certains outils de dessin technique.
+\\
+
+DWG
+&
+Format de fichier CAO couramment utilisé par les logiciels de dessin assisté par
+ordinateur.
+\\
+
+DXF
+&
+\textit{Drawing Exchange Format}. Format CAO utilisé pour échanger des dessins
+entre logiciels.
 \\
 
 EPSG
 &
 Référentiel de codes permettant d'identifier les systèmes de coordonnées et
 les transformations géodésiques.
-\\
-
-ETL
-&
-\textit{Extract, Transform, Load}. Processus d'extraction, de transformation et
-de chargement de données.
 \\
 
 FME
@@ -89,10 +91,34 @@ GDAL
 lire, écrire et transformer de nombreux formats de données géospatiales.
 \\
 
+LAS
+&
+Format de fichier utilisé pour stocker des nuages de points, notamment issus de
+relevés LiDAR.
+\\
+
+LAZ
+&
+Version compressée du format \texttt{LAS}, utilisée pour réduire le volume de
+stockage des nuages de points.
+\\
+
 OGR
 &
 Composant de GDAL principalement consacré à la lecture, à l'écriture et au
 traitement des données vectorielles.
+\\
+
+PDAL
+&
+\textit{Point Data Abstraction Library}. Bibliothèque spécialisée dans la
+lecture et le traitement des nuages de points.
+\\
+
+PR
+&
+\textit{Pull Request}. Demande d'intégration de modifications dans un projet
+versionné, généralement relue avant d'être acceptée.
 \\
 
 RSE
@@ -100,10 +126,10 @@ RSE
 Responsabilité sociétale des entreprises.
 \\
 
-SDE
+SDF
 &
-\textit{Spatial Database Engine}. Technologie Esri utilisée pour accéder à des
-données géographiques stockées dans un système de gestion de base de données.
+Format de données géographiques ou CAO selon les contextes, étudié puis écarté
+du périmètre initial de développement.
 \\
 
 SGBD
@@ -120,12 +146,6 @@ SQL
 &
 \textit{Structured Query Language}. Langage utilisé pour interroger et
 manipuler des bases de données relationnelles.
-\\
-
-WKT
-&
-\textit{Well-Known Text}. Représentation textuelle normalisée d'une géométrie
-ou d'un système de coordonnées.
 \\
 
 \end{longtable}
@@ -146,17 +166,19 @@ ou d'un système de coordonnées.
 
 \begin{longtable}{
     @{}
-    >{\bfseries}p{0.24\textwidth}
-    p{0.70\textwidth}
+    >{\bfseries\raggedright\arraybackslash}p{0.24\textwidth}
+    >{\raggedright\arraybackslash}p{0.70\textwidth}
     @{}
 }
 
 \toprule
+\TableHeader
 Terme & Définition \\
 \midrule
 \endfirsthead
 
 \toprule
+\TableHeader
 Terme & Définition \\
 \midrule
 \endhead
@@ -177,10 +199,11 @@ Base de données capable de stocker, d'interroger et de manipuler des objets
 géographiques tels que des points, des lignes et des polygones.
 \\
 
-Connecteur
+Conda
 &
-Composant logiciel chargé d'établir la communication avec une source de données
-et d'en extraire les informations attendues par l'application.
+Gestionnaire d'environnements et de dépendances Python. Dans le projet, il a été
+retenu pour construire un environnement de packaging plus stable autour de GDAL
+et PyInstaller.
 \\
 
 Donnée raster
@@ -194,6 +217,20 @@ Donnée vectorielle
 &
 Donnée géographique représentée par des géométries telles que des points, des
 lignes ou des polygones, auxquelles peuvent être associés des attributs.
+\\
+
+Documentation des métadonnées
+&
+Étape consistant à extraire les informations décrivant une ressource : nom,
+format, projection, géométrie, attributs, emprise ou encore dates disponibles.
+Dans Scan, cette étape est aussi appelée \textit{lookup}.
+\\
+
+Docker
+&
+Outil permettant d'exécuter une application dans un environnement isolé et
+reproductible. Il a été utilisé pour générer l'exécutable Windows dans des
+conditions maîtrisées.
 \\
 
 Driver
@@ -214,6 +251,24 @@ Plus petit polygone convexe contenant l'ensemble des géométries d'un jeu de
 données.
 \\
 
+GeoPackage
+&
+Format de fichier géographique pouvant contenir plusieurs couches dans un même
+fichier, par exemple des données vectorielles, des rasters ou des tables.
+\\
+
+GeoJSON
+&
+Format d'échange de données géographiques textuel, couramment utilisé pour
+représenter des objets vectoriels et leurs attributs.
+\\
+
+GeoParquet
+&
+Format de stockage géographique reposant sur Parquet. Il permet de stocker des
+données vectorielles de manière efficace, notamment pour des usages d'analyse.
+\\
+
 Géodatabase
 &
 Structure de stockage de données géographiques utilisée notamment par les
@@ -231,6 +286,50 @@ Métadonnée
 &
 Information décrivant une ressource de données, par exemple son nom, sa
 structure, son format, sa projection, son emprise ou sa date de modification.
+\\
+
+Laspy
+&
+Bibliothèque Python utilisée pour lire et écrire des fichiers de nuages de
+points aux formats \texttt{LAS} et \texttt{LAZ}.
+\\
+
+LibreDWG
+&
+Bibliothèque libre spécialisée dans la lecture des fichiers \texttt{DWG}. Elle a
+été étudiée pour accéder au contenu des données CAO dans le cadre de Scan.
+\\
+
+Listing
+&
+Étape de Scan consistant à inventorier les ressources accessibles dans une
+source de données avant de les documenter ou de les signer.
+\\
+
+Lookup
+&
+Nom utilisé dans la documentation technique de Scan pour désigner l'étape de
+documentation. Elle consiste à extraire les métadonnées décrivant une ressource.
+\\
+
+MkDocs
+&
+Outil permettant de générer un site statique de documentation. Il a été utilisé
+avec \textit{mkdocstrings} pour produire une documentation à partir du code
+Python.
+\\
+
+Nuage de points
+&
+Ensemble de points décrivant une surface ou un objet en trois dimensions. Ces
+données peuvent être très volumineuses et sont souvent stockées dans des
+fichiers \texttt{LAS} ou \texttt{LAZ}.
+\\
+
+Oracle Spatial
+&
+Extension spatiale d'Oracle permettant de stocker et d'interroger des données
+géographiques dans une base Oracle.
 \\
 
 Packaging
@@ -255,15 +354,20 @@ un exécutable pouvant être lancé sans installation préalable de Python.
 Scan
 &
 Produit d'ISOGEO chargé d'explorer des sources de données, d'identifier les
-ressources qu'elles contiennent et d'extraire les informations techniques
-nécessaires à leur documentation dans l'écosystème ISOGEO.
+ressources qu'elles contiennent et d'extraire les métadonnées nécessaires à leur
+documentation dans l'écosystème ISOGEO.
 \\
 
 Signature
 &
-Ensemble d'informations calculées à partir d'une ressource afin de la
-caractériser, de la comparer ou de détecter une éventuelle évolution de son
-contenu.
+Empreinte calculée à partir d'une ressource afin de vérifier son intégrité et de
+détecter une éventuelle évolution de son contenu.
+\\
+
+Shapefile
+&
+Format de fichier vectoriel Esri très utilisé pour échanger des données
+géographiques.
 \\
 
 Source de données
@@ -271,6 +375,12 @@ Source de données
 Emplacement ou système à partir duquel Scan analyse des ressources. Une source
 peut notamment correspondre à une base de données, une géodatabase, un dossier
 ou un fichier géographique.
+\\
+
+SQL Server
+&
+Système de gestion de base de données relationnelle de Microsoft, pouvant aussi
+stocker des données spatiales.
 \\
 
 Test de régression

@@ -282,18 +282,27 @@ effectuée.
 
 \begin{table}[H]
 \centering
-\begin{tabularx}{\textwidth}{>{\bfseries}p{2.7cm}XX}
+\renewcommand{\arraystretch}{1.22}
+\setlength{\tabcolsep}{7pt}
+\begin{tabularx}{\textwidth}{
+    >{\bfseries\raggedright\arraybackslash}p{3.4cm}
+    >{\raggedright\arraybackslash}X
+    >{\raggedright\arraybackslash}p{4.2cm}
+}
 \toprule
+\TableHeader
 Type de test & Objectif & Application \\
 \midrule
 Non-régression & Comparer les sorties Python avec les résultats FME de
 référence. & Inventaire et documentation. \\
+\TableAlt
 Intégrité de la signature & Vérifier que le hash réagit correctement aux
 modifications de la donnée. & Signature. \\
 Performance & Mesurer le comportement des scripts sur des volumes de données
 importants. & Inventaire, documentation et signature. \\
 \bottomrule
 \end{tabularx}
+\renewcommand{\arraystretch}{1}
 \caption{Principaux tests prévus pour valider les traitements Python}
 \label{tab:tests_validation_python}
 \end{table}

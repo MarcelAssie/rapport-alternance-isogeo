@@ -13,27 +13,27 @@ la valorisation des données géographiques. Scan prend notamment en charge des
 bases de données, des géodatabases d'entreprise ainsi que plusieurs formats de
 fichiers géographiques.
 
-
-Historiquement, l’ensemble de ces traitements reposait sur des workbenches FME, ce qui entraînait une dépendance externe et des coûts de licence.
-. ISOGEO a donc engagé leur remplacement progressif par des scripts Python intégrés directement
-au produit. Ma mission a consisté à poursuivre cette migration, déjà initiée
-pour certaines sources comme PostGIS et les géodatabases d'entreprise Esri.
+Historiquement, l'ensemble de ces traitements reposait sur des workbenches FME,
+ce qui entraînait une dépendance externe et des coûts de licence. ISOGEO a donc
+engagé leur remplacement progressif par des scripts Python intégrés directement
+au produit. Ma mission a consisté à poursuivre cette migration, déjà initiée pour
+certaines sources comme PostGIS et les géodatabases d'entreprise Esri.
 
 Après une phase d'analyse et de documentation de l'existant, j'ai participé au
 développement de traitements pour plusieurs sources, notamment les données
-vectorielles et raster, GeoPackage, Oracle et SQL Server. Ces scripts permettent
-d'extraire les tables, les champs, les projections, les géométries, les emprises
-spatiales et les autres métadonnées attendues par Scan, ainsi que de générer une
-signature des données.
+vectorielles et raster, GeoPackage, les données CAO, Oracle, SQL Server et
+GeoParquet. Les travaux les plus récents ont également porté sur les nuages de
+points aux formats LAS et LAZ. Ces scripts permettent d'extraire les tables, les
+champs, les projections, les géométries, les emprises spatiales et les autres
+métadonnées attendues par Scan, ainsi que de générer une signature des données.
 
 La bibliothèque GDAL/OGR a été principalement utilisée, complétée par des
-bibliothèques adaptées à certains formats spécifiques. Les scripts ont ensuite
-été organisés dans une architecture modulaire et préparés pour être distribués
-sous la forme d'un exécutable Windows autonome avec PyInstaller. Cet exécutable
-est généré dans un environnement Docker afin de rendre le processus
-reproductible et indépendant des bibliothèques installées sur le poste du
-développeur. Des tests de régression permettent également de comparer les
-résultats obtenus avec ceux des anciens traitements FME.
+bibliothèques adaptées à certains formats spécifiques, comme LibreDWG ou encore SQLAlchemy. Les scripts ont ensuite été organisés dans une architecture modulaire et
+préparés pour être distribués sous la forme d'un exécutable Windows autonome avec
+PyInstaller. Cet exécutable est généré dans un environnement Docker afin de
+rendre le processus reproductible et indépendant des bibliothèques installées sur
+le poste du développeur. Des tests de régression et des tests d'intégrité de la
+signature permettent également de valider les traitements.
 
 Ces travaux contribuent à réduire la dépendance de Scan à FME, à faciliter la
 maintenance des traitements et à renforcer leur intégration dans
@@ -43,6 +43,6 @@ l'environnement logiciel d'ISOGEO.
 
 \noindent
 \textbf{Mots-clés :}
-géomatique ; Scan ; ISOGEO ; Python ; FME ; GDAL/OGR ; métadonnées ;
-bases de données spatiales ; Docker ; PyInstaller ; tests de régression.
-
+géomatique ; Scan ; ISOGEO ; Python ; migration FME ; métadonnées ; signature ;
+GDAL/OGR ; GeoPackage ; GeoParquet ; CAO ; bases de données spatiales ;
+nuages de points ; Docker ; PyInstaller.

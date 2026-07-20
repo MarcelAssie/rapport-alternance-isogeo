@@ -103,13 +103,6 @@ mise à jour d'un catalogue de données géographiques. Elle aide les
 organisations à disposer d'un inventaire centralisé de leur patrimoine de
 données, à enrichir les fiches de métadonnées associées et à faciliter leur
 recherche, leur consultation et leur diffusion.
-\footnote{%
-\href{https://www.isogeo.com/}{Site officiel d'Isogeo}
-{Site officiel d'Isogeo, présentation de la solution de catalogage,
-consulté en juillet 2026.}%
-}
-
-
 
 Les utilisateurs de la solution appartiennent aussi bien au secteur public
 qu'au secteur privé. Il peut notamment s'agir de collectivités territoriales, de bureaux d'études ou de
@@ -154,11 +147,6 @@ Enfin, les plugins pour QGIS et
 ArcGIS Pro permettent aux utilisateurs de retrouver, consulter et ajouter des
 données directement depuis leur logiciel SIG habituel, à partir des métadonnées
 documentées dans Isogeo.
-\footnote{%
-\href{https://help.isogeo.com/}{Base de connaissance officielle des produits Isogeo}
-{Base de connaissance officielle des produits Isogeo, consultée en
-juillet 2026.}%
-}
 
 
 % À INSÉRER ICI :
@@ -294,11 +282,6 @@ Pour les organismes publics, une meilleure documentation facilite également la
 diffusion et l'ouverture des données. Elle peut ainsi contribuer à renforcer
 la transparence de l'action publique et l'accès aux informations produites par
 les administrations.
-\footnote{%
-\href{https://www.isogeo.com/actualites/simplifiez-louverture-de-vos-donnees-geospatiales-avec-loffre-passerelle-donnees-quebec}{Isogeo, exemple de catalogage et de publication de donnees ouvertes}
-{Isogeo, exemple de catalogage et de publication de données ouvertes,
-consulté en juillet 2026.}%
-}
 
 \medskip
 
@@ -319,11 +302,6 @@ Lorsqu'une ressource n'a pas changé depuis l'exécution précédente, il n'est 
 nécessaire de réaliser de nouveau l'ensemble de son traitement. Ce mécanisme
 permet d'optimiser les temps d'exécution et d'éviter certaines opérations
 inutiles.
-\footnote{%
-\href{https://www.isogeo.com/actualites/r-d-isogeo---ensg-detection-de-la-modification-des-tables-geographiques}{Isogeo, detection de la modification des tables geographiques}
-{Isogeo, « Détection de la modification des tables géographiques »,
-septembre 2022.}%
-}
 
 La migration de FME vers une solution Python autonome permet également de
 simplifier les prérequis nécessaires au fonctionnement du produit. Aucun gain
@@ -376,11 +354,6 @@ Le service installé dans l'environnement du client est appelé
 droits nécessaires pour accéder aux sources ciblées. Les opérations réalisées
 par Scan sont des opérations de lecture et n'ont pas pour objectif de modifier
 les données des clients.
-\footnote{%
-\href{https://help.isogeo.com/doc-scan-fme/support/exe/}{Documentation officielle de Scan}
-{Documentation officielle de Scan, présentation du sous-programme
-d'extraction de métadonnées, consultée en juillet 2026.}%
-}
 
 Le traitement d'une source repose principalement sur trois opérations : le
 listing, la signature et l'extraction des métadonnées.
@@ -491,10 +464,6 @@ Cette dépendance augmente le nombre de prérequis nécessaires au déploiement 
 produit et entraîne des coûts de licence. Elle peut également compliquer les
 opérations de support lorsqu'un problème dépend de la version de FME, de
 l'activation de la licence ou d'un composant particulier de l'installation.
-\footnote{%
-\href{https://help.isogeo.com/doc-scan-fme/support/support/}{Documentation officielle de support de Scan}
-{Documentation officielle de support de Scan, consultée en juillet 2026.}%
-}
 
 \medskip
 
@@ -612,27 +581,3 @@ tests de régression ;
 Les principales sources étudiées au cours de la mission comprenaient notamment
 les formats de données vectorielles et raster, les données CAO (DWG, DXF),
 GeoPackage, Oracle, Microsoft SQL Server, GeoParquet et les nuages de points.
-
-\medskip
-
-\noindent
-\textbf{Périmètre et limites}
-
-\medskip
-
-Certaines limitations dépendaient des technologies utilisées, notamment pour
-les données CAO. Tous les formats n'ont pas pu être pris en charge dans le
-périmètre de la mission. Les formats \texttt{.SDF} et \texttt{.DGN} ont ainsi
-été mis de côté.
-
-Pendant la migration, les anciens traitements FME ont été conservés comme
-référence. Ils permettaient de comparer les résultats, d'identifier les écarts
-et de vérifier que la nouvelle solution respectait le comportement historique
-attendu par Scan.
-
-La réussite de la mission reposait donc sur la qualité des développements
-Python, leur intégration dans le produit et la mise en place d'une méthode de
-validation fiable. Cette validation était nécessaire pour vérifier
-l'équivalence entre les nouveaux traitements et les traitements FME de
-référence.
-
