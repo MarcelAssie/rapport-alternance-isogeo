@@ -436,7 +436,71 @@ et de la capacité à intégrer proprement le traitement dans Scan.
 % Une capture ou un schéma simple représentant une donnée de type Nuage des points.
 
 % =============================================================================
-% 3.5 PRINCIPE DE SIGNATURE DES DONNEES
+% 3.5 GESTION DES ERREURS ET DES CONNEXIONS
+% =============================================================================
+
+\section{Gestion des erreurs et des connexions}
+\label{sec:gestion_erreurs_connexions}
+
+Au cours des développements, certains aspects transverses étaient aussi
+importants que le traitement des formats eux-mêmes. C'était notamment le cas de
+la gestion des erreurs et des modes de connexion aux bases de
+données.
+
+% -----------------------------------------------------------------------------
+% 3.5.1 Remontée des erreurs
+% -----------------------------------------------------------------------------
+
+\subsection{Gestion des erreurs}
+\label{subsec:remontee_erreurs}
+
+Les scripts devaient signaler clairement les erreurs rencontrées pendant les
+traitements. L'objectif était d'éviter les échecs silencieux ou les messages
+trop génériques, difficiles à exploiter ensuite.
+
+Cette remontée des erreurs est importante pour le support. Lorsqu'un traitement
+échoue chez un client, le message retourné doit aider à comprendre rapidement la
+cause du problème : paramètre manquant, connexion impossible, table absente,
+donnée invalide, géométrie non lisible ou source vide. Un message précis permet
+de mieux orienter le diagnostic et de réduire le temps nécessaire pour corriger
+ou expliquer l'erreur.
+
+La gestion des erreurs devait donc rester cohérente avec le fonctionnement de
+Scan. Le traitement devait indiquer ce qui n'avait pas pu être réalisé, sans
+masquer l'information utile et sans interrompre inutilement l'analyse des autres
+ressources lorsque cela était possible.
+
+% -----------------------------------------------------------------------------
+% 3.5.2 Modes de connexion aux bases de données
+% -----------------------------------------------------------------------------
+
+\subsection{Modes de connexion aux bases de données}
+\label{subsec:modes_connexion_bases}
+
+Les bases de données demandaient également une attention particulière sur la
+connexion. Les utilisateurs ne se connectent pas toujours de la même manière
+selon leur environnement, leur base et les règles de sécurité en place.
+
+Pour Oracle, le traitement devait gérer plusieurs cas. La connexion pouvait se
+faire à partir d'un alias ou d'une chaîne TNS (un identifiant Oracle qui référence
+les paramètres de connexion à une base). Elle pouvait aussi être construite à partir des
+informations classiques de connexion : serveur, port et nom de base ou de
+service. Ces deux modes devaient être pris en charge afin de rester compatible
+avec les configurations déjà utilisées par les clients.
+
+Pour SQL Server, deux grands cas de connexion étaient à gérer. Lorsque
+l'utilisateur fournissait un identifiant et un mot de passe, le traitement
+utilisait une authentification SQL Server. Lorsque ces informations n'étaient
+pas fournies, la connexion pouvait s'appuyer sur l'authentification Windows de
+la machine. Le script devait aussi tenir compte du pilote disponible sur le
+poste et des paramètres nécessaires pour établir la connexion.
+
+Cette prise en charge des différents modes de connexion était indispensable
+pour que les scripts puissent fonctionner dans des environnements variés, sans
+imposer une seule manière de se connecter aux bases.
+
+% =============================================================================
+% 3.6 PRINCIPE DE SIGNATURE DES DONNEES
 % =============================================================================
 
 \section{Principe de signature des données}
@@ -453,7 +517,7 @@ donnée, ses attributs, ses géométries lorsqu'elles existaient et certaines
 informations spatiales comme le système de coordonnées.
 
 % -----------------------------------------------------------------------------
-% 3.5.1 Signature des fichiers GeoPackage
+% 3.6.1 Signature des fichiers GeoPackage
 % -----------------------------------------------------------------------------
 
 \subsection{Signature des fichiers GeoPackage}
@@ -477,7 +541,7 @@ même contenu devaient produire la même signature, même si les entités n'éta
 pas lues dans le même ordre.
 
 % -----------------------------------------------------------------------------
-% 3.5.2 Signature des bases de données
+% 3.6.2 Signature des bases de données
 % -----------------------------------------------------------------------------
 
 \subsection{Signature des bases de données}
@@ -506,14 +570,14 @@ prendre en compte les valeurs attributaires, les géométries et la structure
 générale de la table, tout en conservant un traitement adapté aux gros volumes.
 
 % =============================================================================
-% 3.6 INTEGRATION, REVUE DE CODE ET EXECUTABLE
+% 3.7 INTEGRATION, REVUE DE CODE ET EXECUTABLE
 % =============================================================================
 
 \section{Intégration, revue de code et exécutable}
 \label{sec:packaging_fil_developpements}
 
 % -----------------------------------------------------------------------------
-% 3.6.1 Revue de code et intégration progressive
+% 3.7.1 Revue de code et intégration progressive
 % -----------------------------------------------------------------------------
 
 \subsection{Revue de code et intégration progressive}
@@ -521,7 +585,7 @@ générale de la table, tout en conservant un traitement adapté aux gros volume
 
 Après le développement d'un traitement, le code était soumis à une
 \textit{Pull Request}. Cette étape fait partie des règles de développement de l'équipe Produit. Elle permettait de proposer les modifications, de les relire et
-de les discuter avant leur intégration dans le projet.
+de les discuter avant leur mise en production.
 
 La revue de code était réalisée par mon tuteur d'alternance. Son objectif était
 de vérifier plusieurs points : la cohérence avec l'architecture existante, la
@@ -545,11 +609,10 @@ critiques soient levés et que le code soit considéré comme suffisamment stabl
 pour être intégré.
 
 % -----------------------------------------------------------------------------
-% 3.6.2 Réutilisation de l'environnement Docker et vérification de l'exécutable
+% 3.7.2 Suivi de l'exécutable au fil des développements
 % -----------------------------------------------------------------------------
 
-\subsection{Réutilisation de l'environnement Docker et vérification de
-l'exécutable}
+\subsection{Suivi de l'exécutable au fil des développements}
 \label{subsec:reutilisation_docker_verification_executable}
 
 La génération de l'exécutable n'a pas été traitée comme une étape finale
